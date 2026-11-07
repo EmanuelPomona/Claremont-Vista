@@ -1,7 +1,7 @@
 ---
 id: TASK-004
 title: Homepage events carousel and Events timetable with shift filter + RSVP
-status: READY
+status: REVIEW
 owner: frontend
 branch: agent/frontend
 priority: HIGH

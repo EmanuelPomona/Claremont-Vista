@@ -1,0 +1,47 @@
+/* Design tokens: docs/DESIGN_BRIEF.md is the source. No other hues. */
+:root {
+  /* palette */
+  --cv-canvas: #fbf8f3; /* warm flyer paper */
+  --cv-surface: #f3eee6; /* tonal step instead of shadows */
+  --cv-ink: #231b2e; /* purple-black ink */
+  --cv-ink-2: #5f566b; /* metadata: times, places */
+  --cv-rule: #e3dcd2; /* timetable rules, borders */
+  --cv-accent: #6b3fa0; /* jacaranda: links, buttons, active filter, wordmark */
+  --cv-accent-strong: #55307f; /* pressed / hover on accent */
+  --cv-accent-tint: #ede6f6; /* selected chip, hover */
+  --cv-success: #2f6b3f;
+  --cv-error: #b3261e;
+
+  /* type */
+  --cv-font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --cv-font-text: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* spacing scale (4px base) */
+  --cv-space-1: 0.25rem;
+  --cv-space-2: 0.5rem;
+  --cv-space-3: 0.75rem;
+  --cv-space-4: 1rem;
+  --cv-space-5: 1.5rem;
+  --cv-space-6: 2rem;
+  --cv-space-7: 3rem;
+  --cv-space-8: 4rem;
+  --cv-space-9: 6rem;
+
+  /* radius logic: controls are small, photos a touch larger, rows have none */
+  --cv-radius-sm: 4px;
+  --cv-radius-md: 8px;
+
+  /* layout */
+  --cv-gutter: 1rem;
+  --cv-max: 1200px;
+  --cv-tap: 2.75rem; /* 44px minimum target */
+
+  /* the only elevation: arrows over photos, dropdowns */
+  --cv-elevate: 0 2px 10px rgba(35, 27, 46, 0.28);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --cv-gutter: 2rem;
+  }
+}
