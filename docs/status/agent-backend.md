@@ -1,34 +1,40 @@
 # STATUS: agent/backend
-Task: TASK-001 (GET endpoints live), then TASK-002
+Task: TASK-001, TASK-002 (both REVIEW)
 Round: 0
-Last updated: 2026-11-07T22:20:00Z
+Last updated: 2026-11-07T22:30:00Z
 
 ## Skills invoked so far
-ADR-004 waives all but test-driven-development and
-verification-before-completion for this project.
+ADR-004 waives all but test-driven-development and verification-before-completion
+for this project; no other skill was invoked.
 - superpowers:test-driven-development @ TASK-002 step 1 (before any eligibility
-  code) -> tests first, watch them fail, then minimal code
-- superpowers:verification-before-completion: not yet (invoke right before handoff)
+  code) -> 5 tests written first, seen failing (ModuleNotFoundError: app.eligibility),
+  then evaluate() implemented; the contact_required test failed 404 == 400 until the route existed
+- superpowers:verification-before-completion @ after all implementation (HEAD
+  e91feca), before the handoff -> fresh pytest, curl, schemathesis and diff checks;
+  caught that zsh has no PIPESTATUS, so pytest was re-run to capture its exit code
 
 ## Done
 - [x] bootstrap.sh run: frontend 3002 / backend **8002** (.env)
-- [x] requirements.txt + venv (backend/.venv, gitignored) -> commit 97c0d0f
-- [x] db.py schema + seed.py (10 events, 6 clubs, 9 facilities) -> bf6c139, 5153a51
-- [x] schemas.py + main.py: GET /api/health, /events, /clubs, /facilities, CORS,
-      400 error handler
+- [x] TASK-001: requirements, db.py, seed.py, schemas.py, GET endpoints -> 97c0d0f..6eb9282
+- [x] manager messaged with port 8002 after the GET endpoints were committed
+- [x] TASK-002: 5 eligibility tests (b7cf155), evaluate() (8234d25), applications,
+      rsvp, feedback, metrics (ba75900), then three fixes found by schemathesis
+      (569f92a, e91feca)
+- [x] handoff written: docs/handoffs/agent-backend.md; both task files set to REVIEW
 
 ## In progress
-- [x] manager messaged with port 8002 (TASK-001 GET endpoints live)
-- [ ] TASK-002 step 1: write the 5 eligibility tests, watch them fail, commit
+- [ ] nothing; waiting for review
 
 ## Verified
-- GET /api/health -> {"status":"ok"} on localhost:8002 (curl)
-- /api/events returns 10; `band=evening&vibe=solo` returns only `walking-loop` (curl)
-- `band=bogus` -> 400 {error:"invalid_query", field:"band"}; `limit=0` -> 400 field limit
-- 99 Localized objects across events/clubs/facilities, all with non-empty en and es
-- CORS echoes http://localhost:3002
-- scripts/contract-test.sh: 8 paths, 0 unreachable, but schemathesis is not
-  installed so this is reachability only, NOT schema conformance
+- `pytest -q` -> 5 passed, exit 0 (HEAD e91feca)
+- all acceptance criteria checked by curl against a freshly seeded DB: see HANDOFF-1 Verification
+- scripts/contract-test.sh -> 8 paths, 0 unreachable (reachability only)
+- schemathesis 4.33.1: 1175 cases, 3 explained findings (ST201/ST202/ST205); see
+  HANDOFF-1 "What Was NOT Verified"
+- CORS preflight DELETE and JSON POST from localhost:3002 and 127.0.0.1:3002 -> 200
+- diff vs main touches only backend/ and this status file; no .env/.db tracked; no
+  credential patterns in the diff
 
 ## Blocked on
-- nothing
+- nothing. A non-blocking CONTRACT CHANGE REQUEST (ApplicationRequest anyOf email/phone)
+  is in the handoff; the tasks were deliberately not set to BLOCKED, for the manager to decide
