@@ -82,7 +82,9 @@ async def validation_error_handler(_: Request, exc: RequestValidationError) -> J
 async def http_error_handler(_: Request, exc: StarletteHTTPException) -> JSONResponse:
     code = {404: "not_found", 405: "method_not_allowed"}.get(exc.status_code, "http_error")
     return JSONResponse(
-        status_code=exc.status_code, content=error_body(code, str(exc.detail))
+        status_code=exc.status_code,
+        content=error_body(code, str(exc.detail)),
+        headers=exc.headers,  # keeps `Allow` on 405 (RFC 9110)
     )
 
 
