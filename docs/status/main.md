@@ -27,9 +27,21 @@ Last updated: 2026-11-07T21:49:17Z
 ## Skills invoked so far
 - superpowers:brainstorming @ step 1, before product decisions -> condensed to one
   question round because the owner is time-limited
+- ecc:product-lens @ step 2 -> diagnostic + ICE cut: forum, booking, accounts, and video
+  went out of scope; the shift/vibe filter became the core
+- ecc:contract-first @ step 6 -> openapi.yaml made authoritative, consumer-shaped
+  `{en,es}` Localized objects, fixtures must mirror spec examples
+- superpowers:writing-plans @ step 10 -> 5 task files in docs/tasks/ (repo convention
+  instead of docs/superpowers/plans)
+- ecc:architecture-decision-records: NOT invoked (time box). ADRs 001-004 written
+  directly.
 
 ## Done
 - [x] Step 0 inventory of docs/inputs/ (recorded above)
+- [x] PRODUCT, DESIGN_BRIEF, ARCHITECTURE, openapi.yaml, API, DATABASE, ACCEPTANCE,
+      DECISIONS, TASK-001..005, INDEX (commits 1eb1e1e..ed6b181 on main)
+- [x] Owner mid-session directives recorded: start agents immediately, keep agent
+      reasoning short, test only essentials (ADR-004)
 
 ## Owner decisions (2026-11-07, brainstorming round)
 - Deadline: agents have ~1 hour to demo-ready. Scope must be tiny.
@@ -37,7 +49,8 @@ Last updated: 2026-11-07T21:49:17Z
 - Language: English + Spanish toggle.
 
 ## In progress
-- [ ] Step 2 product-lens -> PRODUCT.md
+- [ ] Step 13 verification, then sync main into worktrees and message agents to start
+- [ ] Next: Mode B integration once the backend + frontend handoffs land
 
 ## Verified
 
