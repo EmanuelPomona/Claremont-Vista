@@ -60,6 +60,14 @@ export const en = {
   'home.week.h2': 'This week',
   'home.week.all': 'See all events',
 
+  // home: where we'd live
+  'home.where.h2': "Where we'd live",
+  'home.where.body':
+    'North of Foothill Boulevard, between the Claremont School of Theology, the TCCS golf course, and Claremont Graduate University. A ten-minute walk to the colleges.',
+  'home.where.note': 'Proposed site. Location is approximate.',
+  'map.aria': 'Map of the proposed site',
+  'map.title': 'Claremont Vista (proposed)',
+
   // carousel
   'carousel.label': 'Upcoming events',
   'carousel.prev': 'Previous event',

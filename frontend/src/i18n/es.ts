@@ -62,6 +62,14 @@ export const es: typeof en = {
   'home.week.h2': 'Esta semana',
   'home.week.all': 'Ver todos los eventos',
 
+  // home: where we'd live
+  'home.where.h2': 'Dónde viviríamos',
+  'home.where.body':
+    'Al norte de Foothill Boulevard, entre la Claremont School of Theology, el campo de golf de TCCS y la Claremont Graduate University. A diez minutos a pie de los colleges.',
+  'home.where.note': 'Sitio propuesto. La ubicación es aproximada.',
+  'map.aria': 'Mapa del sitio propuesto',
+  'map.title': 'Claremont Vista (propuesto)',
+
   // carousel
   'carousel.label': 'Próximos eventos',
   'carousel.prev': 'Evento anterior',

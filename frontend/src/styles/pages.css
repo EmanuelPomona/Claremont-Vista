@@ -590,3 +590,67 @@
   font-size: 2rem;
   line-height: 1.1;
 }
+
+/* landing map: "Where we'd live" -------------------------------------------------- */
+.where {
+  margin-top: var(--cv-space-8);
+}
+
+.where__intro {
+  display: grid;
+  justify-items: center;
+  gap: var(--cv-space-4);
+  margin-bottom: var(--cv-space-6);
+  text-align: center;
+}
+
+.where__body {
+  max-width: 34ch;
+  margin-inline: auto;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1rem + 1.8vw, 2.25rem);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.where__note {
+  margin-top: var(--cv-space-3);
+  color: var(--cv-ink-2);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+.site-map {
+  width: 100%;
+  height: 380px;
+  background: var(--cv-surface);
+  border-block: 1px solid var(--cv-rule);
+}
+
+.leaflet-tile-pane {
+  filter: grayscale(1) contrast(0.95) brightness(1.04);
+}
+
+.site-pin {
+  background: none;
+  border: 0;
+}
+
+.site-pin svg {
+  display: block;
+}
+
+/* the map runs straight into the footer on the homepage */
+main:has(.where) + .site-footer {
+  margin-top: 0;
+}
+
+main:has(.where) .where {
+  margin-bottom: 0;
+}
+
+@media (max-width: 520px) {
+  .site-map {
+    height: 260px;
+  }
+}
