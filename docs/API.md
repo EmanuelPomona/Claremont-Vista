@@ -82,6 +82,10 @@ Status, first match wins:
 
 `max_comfortable_rent = floor(annual_income * 0.30 / 12)`
 
+Input typing (ADR-005): at least one of `email`/`phone` must be a non-empty
+string, and `""` counts as not provided. Integers and booleans must be real JSON
+types: `"3"` for `household_size` is a 400, not coerced.
+
 Every valid application is stored (whatever its status) and returns 201.
 `application_id` is `CV-` plus a 4-digit zero-padded sequence (`CV-0001`).
 

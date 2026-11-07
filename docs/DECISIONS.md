@@ -61,6 +61,18 @@ essentially required" and not to over-think. For this project only:
 
 Skills not invoked must not be claimed. The audit in protocol §2 still applies.
 
+## ADR-005: Contract change request from the backend accepted (email-or-phone, strict types)
+
+Date: 2026-11-07. Status: Accepted. Source: the CONTRACT CHANGE REQUEST in
+`docs/handoffs/agent-backend.md`.
+
+`ApplicationRequest` in `openapi.yaml` now expresses "email or phone required" as
+`anyOf` (each branch a required non-empty string), matching the prose and the
+implementation. The contract also states that the backend's strict typing (no
+string-to-int/bool coercion) is intended. There is no consumer-visible change,
+so tasks were not blocked. `scripts/contract-test.sh` was also fixed to use
+`--url` with schemathesis 4.x.
+
 ## ADR-003: Local SQLite, no deployment
 
 Date: 2026-11-07. Status: Accepted. The owner chose a local laptop demo.
