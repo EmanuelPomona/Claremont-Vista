@@ -6,7 +6,7 @@ import { formatWhen } from '../lib/format'
 import { BandLabel, VibeLabel } from './VibeLabel'
 
 /** Event photo, or the designed fallback (jacaranda-tint panel + band label). Never a broken image icon. */
-function Photo({ event, eager }: { event: Event; eager: boolean }) {
+function Photo({ event }: { event: Event }) {
   const [failed, setFailed] = useState(false)
   if (failed) {
     return (
@@ -20,7 +20,7 @@ function Photo({ event, eager }: { event: Event; eager: boolean }) {
       className="slide__img"
       src={event.image}
       alt=""
-      loading={eager ? 'eager' : 'lazy'}
+      loading="eager"
       draggable={false}
       onError={() => setFailed(true)}
     />
@@ -91,7 +91,7 @@ export function Carousel({ events }: { events: Event[] }) {
               aria-hidden={i !== index}
             >
               <div className="slide__media">
-                <Photo event={event} eager={i < 2} />
+                <Photo event={event} />
               </div>
               <div className="slide__caption">
                 <time className="slide__when" dateTime={event.starts_at}>

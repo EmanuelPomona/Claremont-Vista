@@ -15,6 +15,9 @@ Last updated: 2026-11-07T22:00:00Z
 - [x] `cd frontend && npm run build` exits 0 (tsc -b + vite build, 52 modules)
 
 ## Notes for resuming
+- Another session shares the chrome-devtools MCP browser and navigates my tab (page 2) and closes isolated pages. Open a fresh page, do navigate+emulate+screenshot back to back. Do NOT use wait_for (huge snapshot output); wait inside evaluate_script instead. Use fullPage:true for screenshots (viewport shots hung).
+- Backend contract notes: send ints/bools as real JSON types; empty email/phone ('') = not provided, so omit/null them.
+- Intl locale: es-US (plain es gives 24h times).
 - ECC GateGuard hook denies the FIRST Write/Edit of every new file (state importers + verbatim instruction, then retry). Workaround: state the facts in text, send a tiny stub write (denied, writes nothing), then the real write.
 - Backend real seed copy differs from fixtures; fixtures only matter when VITE_USE_FIXTURES=1.
 - RSVP/applications/feedback/metrics endpoints land in the backend later (TASK-002); until then they 404/405, so error states must stay graceful.
@@ -22,9 +25,14 @@ Last updated: 2026-11-07T22:00:00Z
 - Working dir may drift into frontend/: use absolute paths.
 
 ## In progress
-- [ ] TASK-003: browser check of header at 1440/768/390 in EN and ES, commit shell steps, then TASK-004
+- [ ] TASK-005: write Facilities, Clubs, About, Contact+FeedbackForm, Apply (RentTable, ApplicationForm, EligibilityResult) + i18n keys + pages.css
+- [ ] Then: 768/390 screenshots of home+events (EN/ES), console log, slop-check, handoff, set tasks REVIEW, message manager
 
 ## Verified
+- TASK-003 header: EN/ES toggle sets html[lang], persists in localStorage cv-lang, no overflow at 390 -> docs/review/F-01-header-desktop-1440.png, F-03-header-mobile-390-{en,es}.png
+- TASK-004 (live backend :8002): evening+solo -> only walking-loop; toggling a pressed chip returns to All; weekend+solo -> empty state + Clear filters; RSVP count from server 7->8, 3 same-tick taps -> exactly 1 POST, persists across reload (cv-rsvps), forced 500 leaves count + role=alert error, undo -> 7. Screens: F-04-home-desktop-1440.png, F-05-events-desktop-1440.png
+- 10 event photos valid JPEG 1600w (agent sourced, I viewed 6 + carousel). Minor: family-movie-night shows a film still with a face on the screen; late-shift-games is a top-down tabletop
+
 
 ## Blocked on
 - nothing

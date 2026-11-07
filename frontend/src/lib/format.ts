@@ -3,26 +3,30 @@ import type { Lang } from '../i18n'
 // All event times are America/Los_Angeles, whatever timezone the browser is in:
 const TZ = 'America/Los_Angeles'
 
+// Plain "es" would give 24-hour times (Spain). US Spanish keeps "5:30 a. m.",
+// matching the Spanish UI copy and what these readers see on their phones.
+const LOCALE: Record<Lang, string> = { en: 'en-US', es: 'es-US' }
+
 /** "Tue 5:30 AM" in English, "mar 5:30 a. m." in Spanish. */
 export function formatWhen(iso: string, lang: Lang): string {
   const d = new Date(iso)
-  const day = new Intl.DateTimeFormat(lang, { weekday: 'short', timeZone: TZ }).format(d)
+  const day = new Intl.DateTimeFormat(LOCALE[lang], { weekday: 'short', timeZone: TZ }).format(d)
   return `${day.replace('.', '')} ${formatTime(iso, lang)}`
 }
 
 /** "Tue" / "mar" */
 export function formatWeekday(iso: string, lang: Lang): string {
-  return new Intl.DateTimeFormat(lang, { weekday: 'short', timeZone: TZ }).format(new Date(iso)).replace('.', '')
+  return new Intl.DateTimeFormat(LOCALE[lang], { weekday: 'short', timeZone: TZ }).format(new Date(iso)).replace('.', '')
 }
 
 /** "5:30 AM" / "5:30 a. m." */
 export function formatTime(iso: string, lang: Lang): string {
-  return new Intl.DateTimeFormat(lang, { hour: 'numeric', minute: '2-digit', timeZone: TZ }).format(new Date(iso))
+  return new Intl.DateTimeFormat(LOCALE[lang], { hour: 'numeric', minute: '2-digit', timeZone: TZ }).format(new Date(iso))
 }
 
 /** "Tuesday, November 10" / "martes 10 de noviembre" */
 export function formatDay(iso: string, lang: Lang): string {
-  return new Intl.DateTimeFormat(lang, { weekday: 'long', month: 'long', day: 'numeric', timeZone: TZ }).format(
+  return new Intl.DateTimeFormat(LOCALE[lang], { weekday: 'long', month: 'long', day: 'numeric', timeZone: TZ }).format(
     new Date(iso),
   )
 }
