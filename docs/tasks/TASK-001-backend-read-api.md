@@ -1,7 +1,7 @@
 ---
 id: TASK-001
 title: Backend scaffold, bilingual seed, and read endpoints
-status: READY
+status: REVIEW
 owner: backend
 branch: agent/backend
 priority: HIGH
