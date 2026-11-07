@@ -81,7 +81,9 @@ export default function Home() {
         <h2 id="where-h">{t('home.where.h2')}</h2>
         <p className="where__body">{t('home.where.body')}</p>
       </div>
-      <SiteMap />
+      <div data-scroll-grow>
+        <SiteMap />
+      </div>
       <p className="container where__note">{t('home.where.note')}</p>
     </section>
     </div>
