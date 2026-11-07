@@ -123,4 +123,73 @@ Slop-check justifications (the brief is manager-owned, so these are recorded her
 
 ### Commit
 
-Branch `agent/frontend`. Last code commit `379b16e`. 22 commits since `main` at handoff time; the handoff/status/task-status docs commit follows it.
+Branch `agent/frontend`. Last code commit `379b16e`; handoff docs commit `0114269`.
+
+---
+
+## HANDOFF-2 — agent/frontend — 2026-11-07
+
+### Summary
+
+TASK-006 done in the order given: the wordmark V now stands in the gap as the capital V of "Vista"; the site
+uses Instrument Serif, Atkinson Hyperlegible Next and Atkinson Hyperlegible Mono; Home ends with a "Where we'd
+live" grayscale OpenStreetMap with one jacaranda pin; and the motion list (a to g) is all in, every animation off
+under `prefers-reduced-motion`. Verification this round was DOM and computed-style checks. **No screenshot of the
+finished page after the font, map and motion changes exists** (see What Was NOT Verified).
+
+### Tasks Completed
+
+**TASK-006**, one commit per step: `0c6896b` V, `f0a8cec` fonts, `d94a6c7` map, `11763d3` motion, `44b54f1` fixes.
+- V sits between "Claremont" and "ista" and overlaps no letter. Measured at the 390 viewport (wordmark 300px wide) with stroke widths included: **7.0px** clear of the "t" crossbar and **13.5px** clear of the "i". Larger at 1440. `F-07-wordmark-desktop-1440.png` (taken after step 1) and `F-07-wordmark-mobile-390.png`.
+- Fonts: `getComputedStyle` shows Instrument Serif on h1 (weight 400), Atkinson Hyperlegible Next on body and h3, Atkinson Hyperlegible Mono on row times; `document.fonts` reports all three families loaded. `grep -riE "archivo|public sans|font-stretch" frontend/src frontend/index.html` finds nothing.
+- Map: Leaflet mounts, 14 of 14 tiles loaded, pin present with `title`/`aria-label` "Claremont Vista (proposed)" (updates to "(propuesto)" in ES), attribution reads "© OpenStreetMap contributors", `.leaflet-tile-pane` filter is `grayscale(1) contrast(.95) brightness(1.04)`, height 380px at 1440 and 260px at 390, `scrollWheelZoom: false`, `dragging` off on mobile. The page shows it above the footer with no gap.
+- Motion: wordmark draws itself (all 23 strokes end at offset 0, "i" dot fades in); one `h1` in two lines under the carousel (second line `#7A7088`); staggered scroll reveal (0/60/120/180ms) on the This-week rows, Facilities rows, Clubs rows and the map section; carousel crossfades (.5s, one slide visible at a time, arrows/dots/swipe/keys still work); pulse ring and "Next up" text on the first This-week row; nav dims the other links on hover; RSVP `:active` scale and count pop; page root fades up 16px on route change.
+- Reduced motion (emulated `prefers-reduced-motion: reduce`): animations are `none` on wordmark, headline, pulse ring and page root; `.reveal` rows are `opacity:1; transform:none`; slide transition is `1e-05s`.
+- Bilingual: ES headline ("Ven a lo que se ajuste a tu turno." / "Todo aquí es opcional."), "Dónde viviríamos", the sentence, the note, the pin title and "Lo próximo" all verified in the DOM.
+- `npm run build` exit 0.
+
+**Bug found and fixed during verification:** under reduced motion the wordmark was invisible (the hidden start state in `shell.css` out-ranked my override in `base.css`). Fixed in `44b54f1` and re-measured: strokes visible.
+
+### Files Changed
+
+`frontend/`: `index.html`, `package.json` + lockfile (`leaflet`, `@types/leaflet`), `src/styles/{tokens,base,shell,events,pages}.css`, `src/components/{Wordmark,SiteMap,Carousel,EventRow,RsvpButton}.tsx`, `src/hooks/useReveal.ts`, `src/pages/{Home,Facilities,Clubs}.tsx`, `src/App.tsx` (React Router v7 opt-in flags, which clears two dev-console warnings), `src/i18n/{en,es}.ts`. `docs/review/F-07-*.png`, this file, the status file, `TASK-006` status.
+
+### Contracts
+
+None. No API, schema or component interface another agent consumes was changed.
+
+### Skills Used
+
+| Skill | Stage invoked | What it actually changed |
+|---|---|---|
+| `superpowers:verification-before-completion` | Before this handoff | Forced fresh `npm run build`, `npm run lint`, a git/secrets check and the owner's dev server check, and led me to measure the V's clearance and the reduced-motion state instead of assuming them. |
+
+`frontend-design:frontend-design` was skipped this round, as the manager instructed. Not claimed.
+
+### Verification
+
+- `cd frontend && npm run build` -> `BUILD_EXIT=0` (379.12 kB JS, 116.46 kB gzip). `npm run lint` -> `LINT_EXIT=0`.
+- Console: `list_console_messages(error, warn)` after visiting all 7 routes at 390 -> none (after the Router flags).
+- `scripts/slop-check.sh` -> the same 6 advisory hits as HANDOFF-1, all justified there; nothing new.
+- V clearance, font families, map, motion, reduced motion and Spanish copy: measured with scripts in Chromium (details above). The owner's `:3001` dev server was never stopped or restarted (it returned 200 at the end). I checked on my own `127.0.0.1:3012` dev server, which I stopped afterwards.
+
+### What Was NOT Verified
+
+- **No screenshot of the finished Home (or any page) at 1440 or 390 after the fonts, map and motion changes.** The capture tool kept producing tiled or hung images while another session used the same browser. DOM and computed-style checks stand in for them. So the new type scale (serif h2 sizes, mono sizes, the two-line headline, the map section's spacing) has not been looked at by me on Events, Facilities, Clubs, About, Contact or Apply, nor on Home.
+- **Overflow was re-checked only on Home at 390 in Spanish** after the font swap. The earlier all-routes audit (HANDOFF-1) predates the new fonts. Atkinson sets wider than the old body font in places, so a re-run of the 7 routes x EN/ES x 390/768 is worth doing first.
+- **Motion feel.** I checked end states and computed styles, not the animation in motion: the draw-in timing, crossfade mid-transition, pulse ring and the route fade were not watched.
+- **Map.** No screenshot of the map. Tiles need network. Keyboard focus on the pin, pinch zoom, and the OSM iframe fallback (not built, since Leaflet worked) were not exercised. The footer gap uses `main:has(.where)`; where `:has()` is unsupported the only effect is some extra space.
+- **Safari/Firefox and a real full-size browser** were not used.
+- **Spanish** copy for the new strings is mine, not reviewed by a native speaker.
+
+### Known Issues
+
+- Row times (1.0625rem) and the carousel time (1.375rem) are mono but larger than the .85rem the task gives for labels and tags, for scanability. Buttons and nav use weight 700 because only 400/500/700 are loaded. The old `--cv-font-*` variable names remain as aliases of the new `--font-*` tokens.
+- The V's clearance is uneven (7.0px on the "t" side vs 13.5px on the "i" side). Moving the V right by about 2 units would even it out; I left it as specified.
+- `F-07-wordmark-mobile-390.png` shows the header twice. That is the capture tool's tiling glitch, not the app.
+- The old `home.sub` string is no longer rendered (the headline replaced it) and is still in the i18n files.
+- Photos from HANDOFF-1 are unchanged, including the film-still face on the movie-night photo.
+
+### Commit
+
+Branch `agent/frontend`. Last code commit `44b54f1`.

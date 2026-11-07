@@ -25,7 +25,10 @@ Last updated: 2026-11-07T22:00:00Z
 - Working dir may drift into frontend/: use absolute paths.
 
 ## In progress
-- [ ] nothing. TASK-003/004/005 are at status REVIEW; handoff written to docs/handoffs/agent-frontend.md (HANDOFF-1)
+- [ ] nothing. TASK-003/004/005 and TASK-006 are at status REVIEW; HANDOFF-1 and HANDOFF-2 are in docs/handoffs/agent-frontend.md
+- TASK-006 (2026-11-07): V in the gap, Instrument Serif + Atkinson fonts, Leaflet map on Home, motion a-g. Commits 0c6896b, f0a8cec, d94a6c7, 11763d3, 44b54f1. Fresh verification: BUILD_EXIT=0, LINT_EXIT=0, console clean on 7 routes at 390. Skill used: superpowers:verification-before-completion only (frontend-design skipped by manager instruction).
+- TASK-006 gaps: no screenshots of the finished pages after the font/map/motion change (capture tool glitching with another session in the browser); overflow re-checked on Home 390 ES only. Re-run the 7-route overflow audit first. Details in HANDOFF-2 "What Was NOT Verified".
+- Owner's dev server :3001 must keep running; my check server on 127.0.0.1:3012 is stopped.
 - Skills invoked: frontend-design:frontend-design (before UI), superpowers:verification-before-completion (before handoff). ADR-004 waives the rest; none claimed.
 - Final verification this session: `npm run build` BUILD_EXIT=0, `npm run lint` LINT_EXIT=0, secrets scan clean, 10 photos + CREDITS.md tracked, slop-check 6 advisory hits justified in the handoff.
 - Open items for the next round are in the handoff under "What Was NOT Verified" and "Known Issues" (state screenshots, 390/768 screenshots of the later pages, native-Spanish review, real full-size browser).

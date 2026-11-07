@@ -1,7 +1,7 @@
 ---
 id: TASK-006
 title: Fix wordmark V, new fonts, landing map, purposeful motion
-status: READY
+status: REVIEW
 owner: frontend
 branch: agent/frontend
 priority: HIGH
