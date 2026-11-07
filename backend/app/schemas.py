@@ -2,7 +2,27 @@
 
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, EmailStr, Field, StringConstraints, field_validator
+from pydantic import (
+    BaseModel,
+    BeforeValidator,
+    EmailStr,
+    Field,
+    StrictBool,
+    StringConstraints,
+    field_validator,
+)
+
+
+def _integral_float_to_int(value):
+    """JSON Schema treats 2.0 as an integer. Pydantic's strict int would reject it."""
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    return value
+
+
+# JSON integer: accepts 2 and 2.0, rejects true/false, "2" and 2.5 (pydantic's lax
+# mode would coerce booleans and numeric strings, which docs/openapi.yaml forbids).
+JsonInt = Annotated[int, BeforeValidator(_integral_float_to_int), Field(strict=True)]
 
 Band = Literal["early", "midday", "evening", "weekend"]
 Vibe = Literal["solo", "small", "big"]
@@ -86,11 +106,11 @@ class ApplicationRequest(BaseModel):
     phone: str | None = Field(default=None, pattern=r"^[0-9 +()\-]{7,20}$")
     employer: Employer
     job_category: JobCategory
-    household_size: int = Field(ge=1, le=8)
-    annual_income: int = Field(ge=0, le=1_000_000)
+    household_size: JsonInt = Field(ge=1, le=8)
+    annual_income: JsonInt = Field(ge=0, le=1_000_000)
     unit_type: UnitType
     preferred_language: Language
-    needs_accessible_unit: bool = False
+    needs_accessible_unit: StrictBool = False
 
     @field_validator("email", "phone", mode="before")
     @classmethod
@@ -126,7 +146,7 @@ class ApplicationResponse(BaseModel):
 
 
 class FeedbackRequest(BaseModel):
-    rating: int = Field(ge=1, le=5)
+    rating: JsonInt = Field(ge=1, le=5)
     message: str | None = Field(default=None, max_length=1000)
     page: str | None = Field(default=None, max_length=50)
     language: Language
