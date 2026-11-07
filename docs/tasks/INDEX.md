@@ -5,10 +5,11 @@ Do not edit by hand — edit the task files and regenerate.
 
 | ID | Status | Owner | Round | Title |
 |---|---|---|---|---|
-| TASK-003 | READY | frontend | 0 | Frontend shell, tokens, wordmark header, EN/ES, API client |
-| TASK-004 | READY | frontend | 0 | Homepage events carousel and Events timetable with shift filter + RSVP |
-| TASK-005 | READY | frontend | 0 | Facilities, Clubs, About, Contact+feedback, Application form |
+| TASK-003 | REVIEW | frontend | 0 | Frontend shell, tokens, wordmark header, EN/ES, API client |
+| TASK-004 | REVIEW | frontend | 0 | Homepage events carousel and Events timetable with shift filter + RSVP |
+| TASK-005 | REVIEW | frontend | 0 | Facilities, Clubs, About, Contact+feedback, Application form |
+| TASK-006 | READY | frontend | 0 | Fix wordmark V, new fonts, landing map, purposeful motion |
 | TASK-001 | DONE | backend | 1 | Backend scaffold, bilingual seed, and read endpoints |
 | TASK-002 | DONE | backend | 1 | RSVP, applications with eligibility, feedback, metrics |
 
-**Counts:** DONE 2, READY 3
+**Counts:** DONE 2, READY 1, REVIEW 3

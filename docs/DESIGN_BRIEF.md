@@ -47,12 +47,17 @@ participation (profiles, attendee faces, "people you may know").
 
 ## Typography
 
-- Display: **Archivo** (Google Fonts, width axis), semi-expanded 700 to 800.
-  Used for page titles, time-band labels, and nav. It carries transit-signage
-  heritage.
-- Text: **Public Sans** (Google Fonts) 400/600, built for public-service sites.
-  It has excellent Spanish glyph coverage (á é í ó ú ñ ¿ ¡). Use tabular
-  figures (`font-variant-numeric: tabular-nums`) for all times, rents, and counts.
+Revised 2026-11-07 by owner request (ADR-006):
+
+- Display: **Instrument Serif** 400 (and italic) for h1/h2 only. It is an
+  editorial serif, The New Work Project's register. It has no bold, so h3 and
+  below use the body face.
+- Text: **Atkinson Hyperlegible Next** 400/500/700. The Braille Institute made it
+  for low-vision readers, which serves our accessibility users, and it covers
+  Spanish glyphs (á é í ó ú ñ ¿ ¡).
+- Times, labels, tags, counts, rents: **Atkinson Hyperlegible Mono**. Monospaced
+  figures keep the timetable columns aligned, so the transit-schedule reference
+  survives.
 - Wordmark: an **inline SVG** recreating the sketch, with "Claremont" lettered
   by hand and a tall stroked V crossing the "nt" and starting "ista". It is a
   single jacaranda stroke. It is the only hand-drawn element besides the nav
