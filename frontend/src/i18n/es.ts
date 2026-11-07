@@ -67,7 +67,7 @@ export const es: typeof en = {
   // home: where we'd live
   'home.where.h2': 'Dónde viviríamos',
   'home.where.body':
-    'Al norte de Foothill Boulevard, entre la Claremont School of Theology, el campo de golf de TCCS y la Claremont Graduate University. A diez minutos a pie de los colleges.',
+    'En un terreno entre un concurrido corredor comercial, el Jardín Botánico de California, la Estación de Campo Bernard de las universidades y un hábitat protegido de matorral costero de salvia.',
   'home.where.note': 'Sitio propuesto. La ubicación es aproximada.',
   'map.aria': 'Mapa del sitio propuesto',
   'map.title': 'Claremont Vista (propuesto)',
