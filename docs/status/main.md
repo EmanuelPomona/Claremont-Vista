@@ -62,8 +62,19 @@ Last updated: 2026-11-07T21:49:17Z
 - Site left running for the owner: frontend http://localhost:3001 (frontend worktree),
   backend http://localhost:8002 (backend worktree). Code is identical to main 4190a94.
 
+## Round 2 (owner 30-min iteration)
+- [x] TASK-006 written (wordmark V, fonts per ADR-006, landing map, motion); frontend resumed,
+      backend on standby (no API change)
+- [x] Integrated de393fd: build ok, tsc clean, no Archivo/Public Sans left, V at 300-342,
+      OSM attribution present
+- [x] Manager browser audit on :3001: 7 routes x EN/ES at 390px show overflow=0, one h1 each in
+      Instrument Serif; map renders with pin + attribution; console has no errors
+- [x] Fixed the pin (it was south of Foothill) -> 34.1094,-117.7102 (commit "fix: move map pin...")
+- Not verified: a reviewer gate (paused by owner); 768/1440 screenshots after round 2; a
+  native-Spanish read of the new copy
+
 ## In progress
-- [ ] Waiting on owner review and iteration requests
+- [ ] Waiting on owner review
 
 ## Verified
 

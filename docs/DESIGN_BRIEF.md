@@ -58,10 +58,8 @@ Revised 2026-11-07 by owner request (ADR-006):
 - Times, labels, tags, counts, rents: **Atkinson Hyperlegible Mono**. Monospaced
   figures keep the timetable columns aligned, so the transit-schedule reference
   survives.
-- Wordmark: an **inline SVG** recreating the sketch, with "Claremont" lettered
-  by hand and a tall stroked V crossing the "nt" and starting "ista". It is a
-  single jacaranda stroke. It is the only hand-drawn element besides the nav
-  rule.
+- Wordmark (revised, ADR-007): "Claremont Vista" typeset in Instrument Serif,
+  jacaranda. The hand-drawn SVG was retired at the owner's request (too playful).
 
 ## Palette
 
