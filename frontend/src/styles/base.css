@@ -239,20 +239,10 @@ main > * {
 
   main > *,
   .headline__line,
-  .wordmark path,
-  .wordmark circle,
+  .wordmark,
   .pulse::after,
   .rsvp__label.is-bumped {
     animation: none !important;
-  }
-
-  .wordmark path {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-
-  .wordmark circle {
-    opacity: 1;
   }
 
   *,
