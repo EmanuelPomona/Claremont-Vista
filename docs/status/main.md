@@ -48,9 +48,16 @@ Last updated: 2026-11-07T21:49:17Z
 - Hosting: local laptop demo. No deployment.
 - Language: English + Spanish toggle.
 
+## Integration (Mode B, same session by owner time directive)
+- [x] Backend Gate 1 APPROVED (reviewer) -> merged agent/backend + agent/reviewer (42044c0, 7585180)
+- [x] Contract change request resolved: ADR-005 (c177130); contract-test.sh schemathesis 4.x fix (9068b49)
+- [x] Fixed duplicate status lines left by the merge (e1ebbbf)
+- [x] Frontend merged via scripts/integrate.sh -> 4190a94. Verified: frontend/ and backend/
+      identical to the branches; npm run build ok; tsc lint clean; audit-skills OK for frontend
+- [ ] Gate 2 (reviewer) on main via :3001 + :8002. Before the demo: `cd backend && python -m app.seed --reset`
+
 ## In progress
-- [ ] Step 13 verification, then sync main into worktrees and message agents to start
-- [ ] Next: Mode B integration once the backend + frontend handoffs land
+- [ ] Waiting on the Gate 2 verdict
 
 ## Verified
 
