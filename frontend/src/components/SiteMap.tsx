@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useLang } from '../i18n'
 
 // Proposed site: north of Foothill Blvd, near CST, the TCCS golf course and CGU.
-const CENTER: L.LatLngTuple = [34.1062, -117.7105]
+const CENTER: L.LatLngTuple = [34.1094, -117.7102]
 
 // A jacaranda map pin. The fill is set with `style` so the CSS variable resolves.
 const PIN =
