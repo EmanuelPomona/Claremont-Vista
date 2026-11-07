@@ -21,6 +21,7 @@
   margin-inline: auto;
   color: var(--cv-accent);
   border-radius: var(--cv-radius-sm);
+  text-decoration: none;
 }
 
 .wordmark {
