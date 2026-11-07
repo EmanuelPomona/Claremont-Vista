@@ -73,6 +73,25 @@ string-to-int/bool coercion) is intended. There is no consumer-visible change,
 so tasks were not blocked. `scripts/contract-test.sh` was also fixed to use
 `--url` with schemathesis 4.x.
 
+## ADR-006: Type change to Instrument Serif + Atkinson Hyperlegible; landing map; motion
+
+Date: 2026-11-07. Status: Accepted (owner request, manager agreed).
+
+**Fonts.** Instrument Serif (headlines), Atkinson Hyperlegible Next (body),
+Atkinson Hyperlegible Mono (times and labels) replace Archivo + Public Sans.
+Atkinson was designed for low-vision readers, which suits our accessibility
+users. The alternative set (Newsreader + Inter Tight + Geist Mono) was rejected
+because Inter and Geist are on the DESIGN_CONSTRAINTS default-identity ban list.
+
+**Map.** Leaflet + OpenStreetMap tiles (no API key, attribution required),
+grayscale, with one jacaranda pin at the proposed site near CST, the TCCS golf
+course, and CGU. Google Maps was rejected because it needs a key and billing.
+
+**Motion.** Accepted: wordmark draw-on, headline rise, scroll reveal, crossfade
+carousel, next-up pulse, and micro-interactions, all disabled under
+prefers-reduced-motion. Rejected: the scroll-scaled hero photo (there is no hero
+photo) and the blurred sticky nav (glassmorphism is banned).
+
 ## ADR-003: Local SQLite, no deployment
 
 Date: 2026-11-07. Status: Accepted. The owner chose a local laptop demo.
