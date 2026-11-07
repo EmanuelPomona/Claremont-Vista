@@ -1,0 +1,227 @@
+/* Header, nav, language toggle, footer, shared states. */
+
+/* header ------------------------------------------------------------- */
+.site-header {
+  padding-top: var(--cv-space-1);
+}
+
+.site-header .container {
+  position: relative;
+}
+
+.site-header__top {
+  display: flex;
+  justify-content: flex-end;
+  min-height: var(--cv-tap);
+}
+
+.site-header__brand {
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  color: var(--cv-accent);
+  border-radius: var(--cv-radius-sm);
+}
+
+.wordmark {
+  display: block;
+  width: min(300px, 74vw);
+  height: auto;
+  overflow: visible;
+}
+
+/* language toggle: "EN | ES" */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang-toggle__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang-toggle__bar {
+  color: var(--cv-rule);
+  font-weight: 400;
+}
+
+.lang-toggle__btn {
+  min-width: var(--cv-tap);
+  min-height: var(--cv-tap);
+  padding: 0 var(--cv-space-2);
+  border: 0;
+  background: transparent;
+  color: var(--cv-ink-2);
+  font: 700 0.9375rem/1 var(--cv-font-display);
+  font-stretch: 112%;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2.5px;
+}
+
+.lang-toggle__btn:hover {
+  color: var(--cv-accent);
+}
+
+.lang-toggle__btn[aria-pressed='true'] {
+  color: var(--cv-accent);
+  text-decoration: underline;
+}
+
+/* nav */
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 var(--cv-space-5);
+  padding-top: var(--cv-space-2);
+}
+
+.site-nav a {
+  display: flex;
+  align-items: center;
+  min-height: var(--cv-tap);
+  padding-inline: var(--cv-space-1);
+  color: var(--cv-ink);
+  font: 700 1rem/1 var(--cv-font-display);
+  font-stretch: 112%;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--cv-accent);
+}
+
+.site-nav a[aria-current='page'] {
+  color: var(--cv-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 9px;
+}
+
+.nav-rule {
+  display: block;
+  width: 100%;
+  height: 12px;
+  color: var(--cv-accent);
+}
+
+@media (min-width: 900px) {
+  .site-header {
+    padding-top: var(--cv-space-3);
+  }
+
+  .site-header__top {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .site-header__brand {
+    margin-top: var(--cv-space-2);
+  }
+
+  .wordmark {
+    width: 400px;
+  }
+
+  .site-nav ul {
+    justify-content: space-between;
+    gap: 0 var(--cv-space-4);
+    padding-inline: var(--cv-space-5);
+  }
+
+  .site-nav a {
+    font-size: 1.125rem;
+  }
+}
+
+/* main --------------------------------------------------------------- */
+main:focus {
+  outline: none;
+}
+
+/* footer ------------------------------------------------------------- */
+.site-footer {
+  margin-top: var(--cv-space-8);
+  padding-block: var(--cv-space-6);
+  background: var(--cv-surface);
+  border-top: 1px solid var(--cv-rule);
+  font-size: 1rem;
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: var(--cv-space-2) var(--cv-space-6);
+}
+
+.site-footer__spanish {
+  font-weight: 600;
+}
+
+.site-footer__note {
+  color: var(--cv-ink-2);
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 768px) {
+  .site-footer__inner {
+    grid-template-columns: auto auto 1fr;
+    align-items: baseline;
+  }
+
+  .site-footer__note {
+    justify-self: end;
+    text-align: right;
+  }
+}
+
+/* shared states ------------------------------------------------------ */
+.state {
+  padding-block: var(--cv-space-5);
+}
+
+.state--error,
+.state--empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--cv-space-3);
+  max-width: 40rem;
+}
+
+.state__title {
+  font: 800 1.25rem/1.2 var(--cv-font-display);
+  font-stretch: 112%;
+}
+
+.state--error .state__title {
+  color: var(--cv-error);
+}
+
+.state__body {
+  color: var(--cv-ink-2);
+}
+
+.skeleton {
+  display: grid;
+  gap: var(--cv-space-3);
+}
+
+.skeleton__row {
+  height: 4.25rem;
+  background: var(--cv-surface);
+  border-radius: var(--cv-radius-sm);
+  animation: cv-pulse 1.4s ease-in-out infinite;
+}
+
+.skeleton__row--tall {
+  height: 16rem;
+}
+
+@keyframes cv-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
