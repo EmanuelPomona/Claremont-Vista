@@ -2,10 +2,11 @@
 id: TASK-001
 title: Backend scaffold, bilingual seed, and read endpoints
 status: REVIEW
+status: DONE
 owner: backend
 branch: agent/backend
 priority: HIGH
-round: 0
+round: 1
 depends_on: []
 blocked_on: ""
 ---
