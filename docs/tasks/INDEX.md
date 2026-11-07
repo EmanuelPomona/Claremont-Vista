@@ -5,6 +5,10 @@ Do not edit by hand — edit the task files and regenerate.
 
 | ID | Status | Owner | Round | Title |
 |---|---|---|---|---|
-| — | — | — | — | _no tasks yet_ |
+| TASK-001 | READY | backend | 0 | Backend scaffold, bilingual seed, and read endpoints |
+| TASK-002 | READY | backend | 0 | RSVP, applications with eligibility, feedback, metrics |
+| TASK-003 | READY | frontend | 0 | Frontend shell, tokens, wordmark header, EN/ES, API client |
+| TASK-004 | READY | frontend | 0 | Homepage events carousel and Events timetable with shift filter + RSVP |
+| TASK-005 | READY | frontend | 0 | Facilities, Clubs, About, Contact+feedback, Application form |
 
-**Counts:** none
+**Counts:** READY 5

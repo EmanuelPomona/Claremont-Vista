@@ -39,6 +39,28 @@ for both time and privacy reasons.
 **Consequences.** Counts can be inflated by repeat clicks, which is accepted for
 the prototype. A real launch would add resident verification.
 
+## ADR-004: One-hour time box overrides the default skill and test load
+
+Date: 2026-11-07. Status: Accepted (owner directive).
+
+The owner gave implementation one hour and said to "test only what is
+essentially required" and not to over-think. For this project only:
+
+- **Frontend** invokes `frontend-design:frontend-design` (before UI) and
+  `superpowers:verification-before-completion` (before handoff). The other three
+  mandatory design skills in `docs/SKILL_ROUTING.md` are waived: the brief has
+  already made the design decisions. No frontend unit tests.
+- **Backend** invokes `superpowers:test-driven-development` for eligibility only
+  and `superpowers:verification-before-completion`. Exactly 5 tests.
+- **Reviewer** invokes `ecc:browser-qa` and
+  `superpowers:verification-before-completion`. Evidence is the 3 width
+  screenshots, the console log, `contract-test.sh`, and `pytest` output.
+  Per-state screenshots are needed only for the states the demo flow hits.
+- `superpowers:requesting-code-review` is waived for workers. The reviewer is
+  the review.
+
+Skills not invoked must not be claimed. The audit in protocol §2 still applies.
+
 ## ADR-003: Local SQLite, no deployment
 
 Date: 2026-11-07. Status: Accepted. The owner chose a local laptop demo.
