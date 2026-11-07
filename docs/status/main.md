@@ -31,8 +31,13 @@ Last updated: 2026-11-07T21:49:17Z
 ## Done
 - [x] Step 0 inventory of docs/inputs/ (recorded above)
 
+## Owner decisions (2026-11-07, brainstorming round)
+- Deadline: agents have ~1 hour to demo-ready. Scope must be tiny.
+- Hosting: local laptop demo. No deployment.
+- Language: English + Spanish toggle.
+
 ## In progress
-- [ ] Step 1 brainstorming: waiting on the owner's answers to deadline / hosting / language
+- [ ] Step 2 product-lens -> PRODUCT.md
 
 ## Verified
 
