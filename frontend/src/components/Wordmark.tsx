@@ -46,12 +46,12 @@ export function Wordmark({ className }: { className?: string }) {
 
         {/* the V: heavier, drops below the baseline, crosses the "nt" */}
         <g strokeWidth="4.8">
-          <path d="M296 5 C300 38 308 78 318 117" />
-          <path d="M318 117 C326 84 338 44 352 8" />
+          <path d="M262 4 C268 38 278 80 292 117" />
+          <path d="M292 117 C300 84 312 44 326 8" />
         </g>
 
         {/* ista */}
-        <g strokeWidth="3.8" transform="translate(344 0) scale(0.9 1)">
+        <g strokeWidth="3.8" transform="translate(334 0) scale(0.9 1)">
           {/* i */}
           <path d="M6 58 L6 82 C6 86 10 86 12 83" />
           <circle cx="7" cy="42" r="2.2" fill="currentColor" strokeWidth="1.4" />
