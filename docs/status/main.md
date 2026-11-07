@@ -73,6 +73,11 @@ Last updated: 2026-11-07T21:49:17Z
 - Not verified: a reviewer gate (paused by owner); 768/1440 screenshots after round 2; a
   native-Spanish read of the new copy
 
+## Round 3 (owner edits, done by the manager directly as small glue)
+- [x] Wordmark typeset in Instrument Serif (the hand-drawn SVG is retired), fade-in, no
+      underline; map caption rewritten EN/ES (ADR-007). Build ok, tsc clean, browser:
+      overflow 0, console has no errors, header screenshot checked.
+
 ## In progress
 - [ ] Waiting on owner review
 
