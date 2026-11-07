@@ -92,6 +92,14 @@ carousel, next-up pulse, and micro-interactions, all disabled under
 prefers-reduced-motion. Rejected: the scroll-scaled hero photo (there is no hero
 photo) and the blurred sticky nav (glassmorphism is banned).
 
+## ADR-007: Typeset wordmark; map copy rewritten
+
+Date: 2026-11-07. Status: Accepted (owner request). The hand-drawn SVG wordmark read as
+too playful, so the header now sets "Claremont Vista" in Instrument Serif (jacaranda),
+with a short fade-in instead of the stroke-draw animation. The map caption now
+describes the site's surroundings: a commercial corridor, the California Botanic
+Garden, the Bernard Field Station, and protected coastal sage scrub habitat.
+
 ## ADR-003: Local SQLite, no deployment
 
 Date: 2026-11-07. Status: Accepted. The owner chose a local laptop demo.
