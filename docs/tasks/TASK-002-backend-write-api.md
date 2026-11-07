@@ -1,7 +1,6 @@
 ---
 id: TASK-002
 title: RSVP, applications with eligibility, feedback, metrics
-status: REVIEW
 status: DONE
 owner: backend
 branch: agent/backend
