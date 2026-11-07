@@ -8,11 +8,27 @@ import { VibeLabel } from './VibeLabel'
  * One row of the timetable: when, what, where, how social, I'm going.
  * `compact` drops the description (used for the homepage preview).
  */
-export function EventRow({ event, compact = false }: { event: Event; compact?: boolean }) {
-  const { lang, pick } = useLang()
+export function EventRow({
+  event,
+  compact = false,
+  reveal = false,
+  next = false,
+}: {
+  event: Event
+  compact?: boolean
+  reveal?: boolean
+  next?: boolean
+}) {
+  const { t, lang, pick } = useLang()
   return (
-    <li className="event-row">
+    <li className={reveal ? 'event-row reveal' : 'event-row'}>
       <div className="event-row__when">
+        {next && (
+          <>
+            <span className="pulse" aria-hidden="true" />
+            <span className="visually-hidden">{t('events.nextup')}</span>
+          </>
+        )}
         <span className="event-row__day">{formatWeekday(event.starts_at, lang)}</span>
         <time className="event-row__time" dateTime={event.starts_at}>
           {formatTime(event.starts_at, lang)}

@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 import { getEvents } from '../api/client'
 import { Carousel } from '../components/Carousel'
+import { SiteMap } from '../components/SiteMap'
 import { EventRow } from '../components/EventRow'
 import { EmptyState } from '../components/states/EmptyState'
 import { ErrorState } from '../components/states/ErrorState'
 import { Loading } from '../components/states/Loading'
 import { useApi } from '../hooks/useApi'
 import { usePageTitle } from '../hooks/usePageTitle'
+import { useReveal } from '../hooks/useReveal'
 import { useLang, type StringKey } from '../i18n'
 
 const STRIP: { lead: StringKey; body: StringKey }[] = [
@@ -21,14 +23,11 @@ export default function Home() {
   const { data, error, loading, reload } = useApi(() => getEvents(), [])
   const events = data ?? []
   const waiting = loading && !data
+  const rootRef = useReveal<HTMLDivElement>(data)
 
   return (
+    <div ref={rootRef}>
     <div className="container page home">
-      <header className="home__intro">
-        <h1>{t('home.h1')}</h1>
-        <p className="page__lede">{t('home.sub')}</p>
-      </header>
-
       {waiting ? (
         <Loading rows={1} tall />
       ) : error ? (
@@ -38,6 +37,11 @@ export default function Home() {
       ) : (
         <Carousel events={events.slice(0, 6)} />
       )}
+
+      <h1 className="headline">
+        <span className="headline__line">{t('home.h1')}</span>{' '}
+        <span className="headline__line headline__line--muted">{t('home.h1b')}</span>
+      </h1>
 
       <section className="home__strip" aria-labelledby="strip-h">
         <div className="section-head">
@@ -63,13 +67,23 @@ export default function Home() {
             <Loading rows={4} />
           ) : (
             <ol className="timetable">
-              {events.slice(0, 4).map((e) => (
-                <EventRow key={e.id} event={e} compact />
+              {events.slice(0, 4).map((e, i) => (
+                <EventRow key={e.id} event={e} compact reveal next={i === 0} />
               ))}
             </ol>
           )}
         </section>
       )}
+    </div>
+
+    <section className="where reveal" aria-labelledby="where-h">
+      <div className="container where__intro">
+        <h2 id="where-h">{t('home.where.h2')}</h2>
+        <p className="where__body">{t('home.where.body')}</p>
+      </div>
+      <SiteMap />
+      <p className="container where__note">{t('home.where.note')}</p>
+    </section>
     </div>
   )
 }

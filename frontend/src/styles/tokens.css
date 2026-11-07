@@ -11,10 +11,17 @@
   --cv-accent-tint: #ede6f6; /* selected chip, hover */
   --cv-success: #2f6b3f;
   --cv-error: #b3261e;
+  --cv-ink-muted: #7a7088; /* 4.5:1 on the canvas; #9a93a8 fails */
 
-  /* type */
-  --cv-font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
-  --cv-font-text: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* type (ADR-006): serif display, hyperlegible sans body, hyperlegible mono for data */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
+  /* older names used across the stylesheets: small headings and UI are the bold sans */
+  --cv-font-display: var(--font-body);
+  --cv-font-text: var(--font-body);
 
   /* spacing scale (4px base) */
   --cv-space-1: 0.25rem;

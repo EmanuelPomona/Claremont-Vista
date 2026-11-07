@@ -1,7 +1,7 @@
 ---
 id: TASK-006
 title: Fix wordmark V, new fonts, landing map, purposeful motion
-status: READY
+status: REVIEW
 owner: frontend
 branch: agent/frontend
 priority: HIGH
@@ -68,7 +68,7 @@ full-width grayscale map with one pin.
   equivalent. Small note: "Proposed site. Location is approximate."
 - `npm i leaflet @types/leaflet`. `SiteMap.tsx` uses plain Leaflet (no
   react-leaflet) in a `useEffect` with cleanup.
-  - center `[34.1062, -117.7105]`, zoom 15
+  - center `[34.1094, -117.7102]`, zoom 15
   - OSM tiles `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png` with the
     attribution `© OpenStreetMap contributors` (required)
   - `scrollWheelZoom: false`, `dragging: !L.Browser.mobile`

@@ -28,7 +28,6 @@
 
 .row__title {
   font: 700 1.1875rem/1.25 var(--cv-font-display);
-  font-stretch: 112%;
 }
 
 .row__main p {
@@ -96,7 +95,6 @@
   margin-top: var(--cv-space-4);
   max-width: 40ch;
   font: 700 clamp(1.25rem, 1rem + 1vw, 1.625rem) / 1.3 var(--cv-font-display);
-  font-stretch: 112%;
 }
 
 .about__lede {
@@ -353,7 +351,6 @@
 
 .feedback__thanks {
   font: 800 1.5rem/1.2 var(--cv-font-display);
-  font-stretch: 112%;
   color: var(--cv-success);
 }
 
@@ -376,7 +373,6 @@
   content: counter(step);
   color: var(--cv-accent);
   font: 800 1.5rem/1 var(--cv-font-display);
-  font-stretch: 112%;
 }
 
 .rent {
@@ -425,7 +421,6 @@
 
 .rent__table td.rent__num {
   font: 800 1.25rem/1.1 var(--cv-font-display);
-  font-stretch: 112%;
 }
 
 .rent__per {
@@ -474,7 +469,6 @@
 .result__status {
   max-width: 24ch;
   font: 800 clamp(1.5rem, 1rem + 2vw, 2.25rem) / 1.15 var(--cv-font-display);
-  font-stretch: 112%;
 }
 
 .result__facts {
@@ -500,7 +494,6 @@
 
 .result__rent {
   font: 800 2.25rem/1.1 var(--cv-font-display);
-  font-stretch: 112%;
 }
 
 .result__fits li {
@@ -519,4 +512,160 @@
 
 .result .btn {
   justify-self: start;
+}
+
+/* type layer (ADR-006) ------------------------------------------------------------
+   Serif for the few big display moments, mono for times, labels, tags, counts and rents. */
+.band__title .label,
+.photo-fallback .label,
+.about__question,
+.result__status,
+.feedback__thanks {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.band__title .label {
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  line-height: 1.05;
+}
+
+.photo-fallback .label {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.about__question {
+  max-width: 30ch;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+  line-height: 1.15;
+}
+
+.result__status {
+  max-width: 20ch;
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  line-height: 1.05;
+}
+
+.feedback__thanks {
+  font-size: 1.9rem;
+  line-height: 1.1;
+}
+
+.label,
+.event-row__day,
+.chip__hint,
+.rent__per {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.band__title .label,
+.photo-fallback .label {
+  font-weight: 400;
+}
+
+.event-row__time,
+.slide__when,
+.rent__table td.rent__num,
+.result__rent {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.event-row__time {
+  font-size: 1.0625rem;
+}
+
+.slide__when {
+  font-size: 1.375rem;
+}
+
+.rent__table td.rent__num {
+  font-size: 1.0625rem;
+}
+
+.result__rent {
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+/* landing map: "Where we'd live" -------------------------------------------------- */
+.where {
+  margin-top: var(--cv-space-8);
+}
+
+.where__intro {
+  display: grid;
+  justify-items: center;
+  gap: var(--cv-space-4);
+  margin-bottom: var(--cv-space-6);
+  text-align: center;
+}
+
+.where__body {
+  max-width: 34ch;
+  margin-inline: auto;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1rem + 1.8vw, 2.25rem);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.where__note {
+  margin-top: var(--cv-space-3);
+  color: var(--cv-ink-2);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+.site-map {
+  width: 100%;
+  height: 380px;
+  background: var(--cv-surface);
+  border-block: 1px solid var(--cv-rule);
+}
+
+.leaflet-tile-pane {
+  filter: grayscale(1) contrast(0.95) brightness(1.04);
+}
+
+.site-pin {
+  background: none;
+  border: 0;
+}
+
+.site-pin svg {
+  display: block;
+}
+
+/* the map runs straight into the footer on the homepage */
+main:has(.where) + .site-footer {
+  margin-top: 0;
+}
+
+main:has(.where) .where {
+  margin-bottom: 0;
+}
+
+@media (max-width: 520px) {
+  .site-map {
+    height: 260px;
+  }
+}
+
+/* home headline: two lines under the carousel, the second one quieter */
+.headline {
+  margin-top: var(--cv-space-7);
+}
+
+.headline__line {
+  display: block;
+  animation: cv-rise 0.7s var(--ease-out) both;
+}
+
+.headline__line--muted {
+  color: var(--cv-ink-muted);
+  animation-delay: 0.12s;
 }
