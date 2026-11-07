@@ -1,11 +1,10 @@
 openapi: 3.1.0
 info:
-  title: Project API
-  version: 0.1.0
+  title: Claremont Vista API
+  version: 1.0.0
   description: |
-    Machine-readable twin of docs/API.md. This file is what
-    scripts/contract-test.sh checks the implementation against, so it is the
-    contract that actually gets enforced — keep it in step with the prose.
+    Machine-readable twin of docs/API.md and the AUTHORITATIVE contract.
+    scripts/contract-test.sh checks the implementation against it.
     Manager owns it. Backend proposes changes via AGENT_PROTOCOL section 6.
 servers:
   - url: http://localhost:8000
@@ -24,12 +23,262 @@ paths:
                 required: [status]
                 properties:
                   status: { type: string, enum: [ok] }
+  /api/events:
+    get:
+      summary: Upcoming events (ends_at >= now), sorted by starts_at ascending
+      parameters:
+        - { name: band, in: query, required: false, schema: { $ref: '#/components/schemas/Band' } }
+        - { name: vibe, in: query, required: false, schema: { $ref: '#/components/schemas/Vibe' } }
+        - { name: limit, in: query, required: false, schema: { type: integer, minimum: 1, maximum: 50, default: 50 } }
+      responses:
+        '200':
+          description: events (possibly empty)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [events]
+                properties:
+                  events: { type: array, items: { $ref: '#/components/schemas/Event' } }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /api/events/{event_id}/rsvp:
+    parameters:
+      - { name: event_id, in: path, required: true, schema: { type: string } }
+    post:
+      summary: Anonymous "I'm going". Increments going_count. No body, no identity.
+      responses:
+        '200': { $ref: '#/components/responses/RsvpCount' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      summary: Undo "I'm going". Decrements going_count, never below 0.
+      responses:
+        '200': { $ref: '#/components/responses/RsvpCount' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/clubs:
+    get:
+      summary: All clubs
+      responses:
+        '200':
+          description: clubs
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [clubs]
+                properties:
+                  clubs: { type: array, items: { $ref: '#/components/schemas/Club' } }
+  /api/facilities:
+    get:
+      summary: All facilities
+      responses:
+        '200':
+          description: facilities
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [facilities]
+                properties:
+                  facilities: { type: array, items: { $ref: '#/components/schemas/Facility' } }
+  /api/applications:
+    post:
+      summary: Submit a housing application; returns an eligibility estimate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ApplicationRequest' }
+            example:
+              full_name: Alex Rivera
+              email: alex@example.com
+              employer: pomona
+              job_category: dining
+              household_size: 3
+              annual_income: 52000
+              unit_type: two_bedroom
+              preferred_language: es
+              needs_accessible_unit: false
+      responses:
+        '201':
+          description: application stored
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ApplicationResponse' }
+              example:
+                application_id: CV-0001
+                submitted_at: '2026-11-07T14:05:00-08:00'
+                eligibility:
+                  status: priority
+                  income_limit_50: 74950
+                  income_limit_80: 119900
+                  max_comfortable_rent: 1300
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /api/feedback:
+    post:
+      summary: Anonymous site feedback (rubric Test stage)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/FeedbackRequest' }
+            example: { rating: 4, message: Me gusta el filtro por horario, page: contact, language: es }
+      responses:
+        '201':
+          description: stored
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [feedback_id]
+                properties:
+                  feedback_id: { type: string, example: FB-0001 }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /api/metrics:
+    get:
+      summary: Live demo counts for the About page
+      responses:
+        '200':
+          description: counts
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Metrics' }
+              example: { applications: 1, rsvps: 87, feedback_count: 1, average_rating: 4.0 }
 components:
+  responses:
+    BadRequest:
+      description: invalid input
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: validation_error, message: household_size must be between 1 and 8, field: household_size }
+    NotFound:
+      description: unknown id
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: event_not_found, message: No event with id 'nope' }
+    RsvpCount:
+      description: the new anonymous count
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [event_id, going_count]
+            properties:
+              event_id: { type: string }
+              going_count: { type: integer, minimum: 0 }
+          example: { event_id: sunrise-yoga, going_count: 7 }
   schemas:
+    Localized:
+      type: object
+      description: Bilingual text. Both keys always present and non-empty.
+      required: [en, es]
+      properties:
+        en: { type: string, minLength: 1 }
+        es: { type: string, minLength: 1 }
+    Band:
+      type: string
+      description: |
+        Derived from starts_at in America/Los_Angeles. Saturday/Sunday -> weekend;
+        otherwise hour < 9 -> early; hour < 16 -> midday; else evening.
+      enum: [early, midday, evening, weekend]
+    Vibe:
+      type: string
+      description: solo = drop in on your own; small = small group; big = big gathering
+      enum: [solo, small, big]
+    Audience:
+      type: string
+      enum: [everyone, families, adults]
+    Event:
+      type: object
+      required: [id, title, description, location, starts_at, ends_at, band, vibe, audience, image, recurrence, going_count]
+      properties:
+        id: { type: string, description: 'stable slug, e.g. sunrise-yoga' }
+        title: { $ref: '#/components/schemas/Localized' }
+        description: { $ref: '#/components/schemas/Localized' }
+        location: { $ref: '#/components/schemas/Localized' }
+        starts_at: { type: string, format: date-time, description: 'ISO 8601 with offset, e.g. 2026-11-10T05:30:00-08:00' }
+        ends_at: { type: string, format: date-time }
+        band: { $ref: '#/components/schemas/Band' }
+        vibe: { $ref: '#/components/schemas/Vibe' }
+        audience: { $ref: '#/components/schemas/Audience' }
+        image: { type: string, description: 'path served by the FRONTEND, e.g. /images/events/sunrise-yoga.jpg' }
+        recurrence:
+          description: e.g. {en Every Tuesday, es Todos los martes}; null for one-off events
+          oneOf:
+            - { $ref: '#/components/schemas/Localized' }
+            - { type: 'null' }
+        going_count: { type: integer, minimum: 0 }
+    Club:
+      type: object
+      required: [id, name, description, meets, vibe, audience, how_to_join]
+      properties:
+        id: { type: string }
+        name: { $ref: '#/components/schemas/Localized' }
+        description: { $ref: '#/components/schemas/Localized' }
+        meets: { $ref: '#/components/schemas/Localized' }
+        vibe: { $ref: '#/components/schemas/Vibe' }
+        audience: { $ref: '#/components/schemas/Audience' }
+        how_to_join: { $ref: '#/components/schemas/Localized' }
+    Facility:
+      type: object
+      required: [id, name, description, hours, accessibility, category]
+      properties:
+        id: { type: string }
+        name: { $ref: '#/components/schemas/Localized' }
+        description: { $ref: '#/components/schemas/Localized' }
+        hours: { $ref: '#/components/schemas/Localized' }
+        accessibility: { $ref: '#/components/schemas/Localized' }
+        category: { type: string, enum: [fitness, outdoor, family, community, transport] }
+    ApplicationRequest:
+      type: object
+      description: At least one of email or phone is required (else 400 contact_required, field email).
+      required: [full_name, employer, job_category, household_size, annual_income, unit_type, preferred_language]
+      properties:
+        full_name: { type: string, minLength: 1, maxLength: 100 }
+        email: { type: [string, 'null'], format: email, maxLength: 200 }
+        phone: { type: [string, 'null'], pattern: '^[0-9 +()\-]{7,20}$' }
+        employer: { type: string, enum: [pomona, cmc, scripps, pitzer, hmc, cgu, kgi, tcc, other] }
+        job_category: { type: string, enum: [dining, grounds, custodial, maintenance, admin, other] }
+        household_size: { type: integer, minimum: 1, maximum: 8 }
+        annual_income: { type: integer, minimum: 0, maximum: 1000000, description: whole US dollars per year, gross household }
+        unit_type: { type: string, enum: [studio, one_bedroom, two_bedroom, three_bedroom] }
+        preferred_language: { type: string, enum: [en, es] }
+        needs_accessible_unit: { type: boolean, default: false }
+    ApplicationResponse:
+      type: object
+      required: [application_id, submitted_at, eligibility]
+      properties:
+        application_id: { type: string, description: 'CV- plus a 4-digit zero-padded sequence' }
+        submitted_at: { type: string, format: date-time }
+        eligibility:
+          type: object
+          required: [status, income_limit_50, income_limit_80, max_comfortable_rent]
+          properties:
+            status: { type: string, enum: [priority, eligible, over_income, needs_review] }
+            income_limit_50: { type: integer }
+            income_limit_80: { type: integer }
+            max_comfortable_rent: { type: integer, description: floor(annual_income * 0.30 / 12) }
+    FeedbackRequest:
+      type: object
+      required: [rating, language]
+      properties:
+        rating: { type: integer, minimum: 1, maximum: 5 }
+        message: { type: [string, 'null'], maxLength: 1000 }
+        page: { type: [string, 'null'], maxLength: 50 }
+        language: { type: string, enum: [en, es] }
+    Metrics:
+      type: object
+      required: [applications, rsvps, feedback_count, average_rating]
+      properties:
+        applications: { type: integer, minimum: 0 }
+        rsvps: { type: integer, minimum: 0, description: sum of going_count over all events }
+        feedback_count: { type: integer, minimum: 0 }
+        average_rating: { type: [number, 'null'], description: rounded to 1 decimal; null when there is no feedback }
     Error:
       type: object
-      required: [error]
+      required: [error, message]
       properties:
-        error:   { type: string, description: machine-readable code }
-        message: { type: string, description: human-readable detail }
+        error:   { type: string, description: 'machine-readable code: validation_error | contact_required | invalid_query | event_not_found | internal_error' }
+        message: { type: string, description: human-readable detail (English) }
         field:   { type: string, description: offending field, when applicable }
