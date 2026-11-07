@@ -28,7 +28,11 @@ Announce which mode you are in before doing anything.
 docs/AGENT_PROTOCOL.md
 docs/SKILL_ROUTING.md
 docs/status/main.md          (if it exists — you are resuming)
+docs/inputs/                 (every file — the human's source material)
 ```
+
+`docs/inputs/` is gitignored, so search tools may skip it. List it with
+`ls -la docs/inputs/` and read each file directly, PDFs and images included.
 
 ## Own
 
@@ -48,6 +52,12 @@ in `docs/status/main.md` at the moment you invoke it.
 Commit after every step below that writes a file, so planning lands on `main` as
 a series of commits rather than one (`docs/AGENT_PROTOCOL.md` section 24).
 
+0. Inventory `docs/inputs/`. Read every file, and record each filename with a
+   one-line takeaway in `docs/status/main.md`. Brainstorming starts from this
+   material, not from a blank page. When the human adds files later, re-read the
+   folder and record what changed. If a file must ship with the site, write a
+   task that copies the final version into a tracked asset directory; site code
+   never references `docs/inputs/`.
 1. Invoke `superpowers:brainstorming` — before defining the solution.
 2. Invoke `ecc:product-lens` — when evaluating product, user, value, MVP.
 3. Write `docs/PRODUCT.md`.

@@ -44,3 +44,12 @@ temp/*~
 # Local agent scratch (evidence in docs/review/ IS tracked on purpose)
 .venv-*/
 *.local.json
+
+# Human source material for the manager (pre-planning doc, interview notes,
+# reference screenshots). Kept local on purpose: the distilled specs in docs/
+# are what gets committed. Interview notes name real people; never commit them.
+docs/inputs/*
+!docs/inputs/README.md
+
+# Brainstorming visual companion (local mockups)
+.superpowers/
