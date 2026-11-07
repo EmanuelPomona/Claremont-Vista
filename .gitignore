@@ -53,3 +53,6 @@ docs/inputs/*
 
 # Brainstorming visual companion (local mockups)
 .superpowers/
+
+# Backend SQLite demo database
+backend/data/
