@@ -4,6 +4,7 @@ import logging
 import sqlite3
 from contextlib import asynccontextmanager
 from datetime import datetime
+from decimal import ROUND_HALF_UP, Decimal
 from typing import Optional
 
 from fastapi import FastAPI, Query, Request
@@ -14,6 +15,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app import schemas
 from app.db import connection
+from app.eligibility import evaluate
 from app.schemas import Band, Vibe
 from app.seed import LA, ensure_seeded
 
@@ -199,4 +201,95 @@ def list_facilities() -> dict:
             }
             for r in rows
         ]
+    }
+
+
+# --- routes: write ----------------------------------------------------------------
+
+
+def _now_la() -> str:
+    return datetime.now(LA).replace(microsecond=0).isoformat()
+
+
+@app.post("/api/applications", status_code=201, response_model=schemas.ApplicationResponse)
+def create_application(req: schemas.ApplicationRequest) -> dict:
+    if not req.email and not req.phone:
+        raise ApiError(
+            400, "contact_required", "Provide an email address or a phone number.", "email"
+        )
+    result = evaluate(req.household_size, req.annual_income, req.employer)
+    submitted_at = _now_la()
+    with connection() as conn:
+        cur = conn.execute(
+            """INSERT INTO applications (full_name, email, phone, employer, job_category,
+                   unit_type, preferred_language, household_size, annual_income,
+                   needs_accessible_unit, status, income_limit_50, income_limit_80,
+                   max_comfortable_rent, submitted_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (
+                req.full_name, req.email, req.phone, req.employer, req.job_category,
+                req.unit_type, req.preferred_language, req.household_size,
+                req.annual_income, int(req.needs_accessible_unit), result["status"],
+                result["income_limit_50"], result["income_limit_80"],
+                result["max_comfortable_rent"], submitted_at,
+            ),
+        )
+        application_id = cur.lastrowid
+    return {
+        "application_id": f"CV-{application_id:04d}",
+        "submitted_at": submitted_at,
+        "eligibility": result,
+    }
+
+
+def _change_rsvp(event_id: str, set_clause: str) -> dict:
+    with connection() as conn:
+        cur = conn.execute(f"UPDATE events SET {set_clause} WHERE id = ?", (event_id,))
+        if cur.rowcount == 0:
+            raise ApiError(404, "event_not_found", f"No event with id '{event_id}'")
+        count = conn.execute(
+            "SELECT going_count FROM events WHERE id = ?", (event_id,)
+        ).fetchone()[0]
+    return {"event_id": event_id, "going_count": count}
+
+
+@app.post("/api/events/{event_id}/rsvp", response_model=schemas.RsvpResponse)
+def rsvp(event_id: str) -> dict:
+    return _change_rsvp(event_id, "going_count = going_count + 1")
+
+
+@app.delete("/api/events/{event_id}/rsvp", response_model=schemas.RsvpResponse)
+def undo_rsvp(event_id: str) -> dict:
+    return _change_rsvp(event_id, "going_count = MAX(going_count - 1, 0)")
+
+
+@app.post("/api/feedback", status_code=201, response_model=schemas.FeedbackResponse)
+def create_feedback(req: schemas.FeedbackRequest) -> dict:
+    with connection() as conn:
+        cur = conn.execute(
+            """INSERT INTO feedback (rating, message, page, language, created_at)
+               VALUES (?,?,?,?,?)""",
+            (req.rating, req.message or None, req.page or None, req.language, _now_la()),
+        )
+        feedback_id = cur.lastrowid
+    return {"feedback_id": f"FB-{feedback_id:04d}"}
+
+
+@app.get("/api/metrics", response_model=schemas.Metrics)
+def metrics() -> dict:
+    with connection() as conn:
+        applications = conn.execute("SELECT COUNT(*) FROM applications").fetchone()[0]
+        rsvps = conn.execute("SELECT COALESCE(SUM(going_count), 0) FROM events").fetchone()[0]
+        count, total = conn.execute(
+            "SELECT COUNT(*), COALESCE(SUM(rating), 0) FROM feedback"
+        ).fetchone()
+    average = None
+    if count:
+        # half-up to 1 decimal, avoiding float banker's-style surprises
+        average = float((Decimal(total) / count).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
+    return {
+        "applications": applications,
+        "rsvps": rsvps,
+        "feedback_count": count,
+        "average_rating": average,
     }
