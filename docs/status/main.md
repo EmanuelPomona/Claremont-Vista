@@ -56,8 +56,14 @@ Last updated: 2026-11-07T21:49:17Z
       identical to the branches; npm run build ok; tsc lint clean; audit-skills OK for frontend
 - [ ] Gate 2 (reviewer) on main via :3001 + :8002. Before the demo: `cd backend && python -m app.seed --reset`
 
+## Owner directive (2026-11-07 ~14:40)
+- Owner accepted the running site as-is and paused all agents. Reviewer Gate 2 was halted
+  before a verdict, so TASK-003/004/005 stay REVIEW (not approved by the reviewer).
+- Site left running for the owner: frontend http://localhost:3001 (frontend worktree),
+  backend http://localhost:8002 (backend worktree). Code is identical to main 4190a94.
+
 ## In progress
-- [ ] Waiting on the Gate 2 verdict
+- [ ] Waiting on owner review and iteration requests
 
 ## Verified
 
