@@ -25,8 +25,10 @@ Last updated: 2026-11-07T22:00:00Z
 - Working dir may drift into frontend/: use absolute paths.
 
 ## In progress
-- [ ] TASK-005: write Facilities, Clubs, About, Contact+FeedbackForm, Apply (RentTable, ApplicationForm, EligibilityResult) + i18n keys + pages.css
-- [ ] Then: 768/390 screenshots of home+events (EN/ES), console log, slop-check, handoff, set tasks REVIEW, message manager
+- [ ] nothing. TASK-003/004/005 are at status REVIEW; handoff written to docs/handoffs/agent-frontend.md (HANDOFF-1)
+- Skills invoked: frontend-design:frontend-design (before UI), superpowers:verification-before-completion (before handoff). ADR-004 waives the rest; none claimed.
+- Final verification this session: `npm run build` BUILD_EXIT=0, `npm run lint` LINT_EXIT=0, secrets scan clean, 10 photos + CREDITS.md tracked, slop-check 6 advisory hits justified in the handoff.
+- Open items for the next round are in the handoff under "What Was NOT Verified" and "Known Issues" (state screenshots, 390/768 screenshots of the later pages, native-Spanish review, real full-size browser).
 
 ## Verified
 - TASK-003 header: EN/ES toggle sets html[lang], persists in localStorage cv-lang, no overflow at 390 -> docs/review/F-01-header-desktop-1440.png, F-03-header-mobile-390-{en,es}.png

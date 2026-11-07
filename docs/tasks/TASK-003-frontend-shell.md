@@ -1,7 +1,7 @@
 ---
 id: TASK-003
 title: Frontend shell, tokens, wordmark header, EN/ES, API client
-status: READY
+status: REVIEW
 owner: frontend
 branch: agent/frontend
 priority: HIGH
