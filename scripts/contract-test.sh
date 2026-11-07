@@ -16,9 +16,12 @@ fi
 echo "service up at $BASE"
 
 if command -v schemathesis >/dev/null 2>&1; then
-  echo "--- schemathesis ---"; schemathesis run "$SPEC" --base-url "$BASE" --checks all
+  # schemathesis 4.x renamed --base-url to --url
+  URLFLAG=--base-url; schemathesis run --help 2>/dev/null | grep -q -- '--url' && URLFLAG=--url
+  echo "--- schemathesis ---"; schemathesis run "$SPEC" "$URLFLAG" "$BASE" --checks all
 elif command -v st >/dev/null 2>&1; then
-  echo "--- schemathesis (st) ---"; st run "$SPEC" --base-url "$BASE" --checks all
+  URLFLAG=--base-url; st run --help 2>/dev/null | grep -q -- '--url' && URLFLAG=--url
+  echo "--- schemathesis (st) ---"; st run "$SPEC" "$URLFLAG" "$BASE" --checks all
 else
   echo "schemathesis not installed — falling back to a documented-path smoke test."
   echo "  full contract testing: pip install schemathesis"
