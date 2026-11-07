@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
+import { ScrollMotion } from './components/ScrollMotion'
 import { useLang } from './i18n'
 import About from './pages/About'
 import Apply from './pages/Apply'
@@ -32,6 +33,7 @@ export default function App() {
   return (
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <RouteChange />
+      <ScrollMotion />
       <a className="skip-link" href="#main">
         {t('skip.main')}
       </a>
