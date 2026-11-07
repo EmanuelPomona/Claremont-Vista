@@ -30,9 +30,8 @@ function Photo({ event }: { event: Event }) {
 /**
  * Full-width carousel of upcoming events (the owner's sketch).
  * Prev/next buttons, dots, left/right arrow keys and touch swipe. It does not
- * auto-advance, so there is nothing to pause and reduced-motion users get no
- * surprise movement; the slide transition itself is disabled by the global
- * prefers-reduced-motion rule in base.css.
+ * auto-advance, so there is nothing to pause. Slides crossfade (.5s); the
+ * global prefers-reduced-motion rule in base.css removes the transition.
  */
 export function Carousel({ events }: { events: Event[] }) {
   const { t, pick, lang } = useLang()
@@ -80,11 +79,11 @@ export function Carousel({ events }: { events: Event[] }) {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        <ul className="carousel__track" style={{ transform: `translateX(-${index * 100}%)` }}>
+        <ul className="carousel__track">
           {events.map((event, i) => (
             <li
               key={event.id}
-              className="slide"
+              className={i === index ? 'slide is-active' : 'slide'}
               role="group"
               aria-roledescription="slide"
               aria-label={t('carousel.slide', { n: i + 1, total })}

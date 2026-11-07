@@ -4,6 +4,7 @@ import { EmptyState } from '../components/states/EmptyState'
 import { ErrorState } from '../components/states/ErrorState'
 import { Loading } from '../components/states/Loading'
 import { useApi } from '../hooks/useApi'
+import { useReveal } from '../hooks/useReveal'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { useLang, type StringKey } from '../i18n'
 
@@ -24,12 +25,13 @@ export default function Facilities() {
   usePageTitle('title.facilities')
   const { data, error, loading, reload } = useApi(() => getFacilities(), [])
   const waiting = loading && !data
+  const rootRef = useReveal<HTMLDivElement>(data)
   const groups = CATEGORY_ORDER.map((c) => ({ category: c, items: (data ?? []).filter((f) => f.category === c) })).filter(
     (g) => g.items.length > 0,
   )
 
   return (
-    <div className="container page">
+    <div className="container page" ref={rootRef}>
       <header className="page__head">
         <h1>{t('facilities.h1')}</h1>
         <p className="page__lede">{t('facilities.lede')}</p>
@@ -49,7 +51,7 @@ export default function Facilities() {
             </div>
             <ul>
               {g.items.map((f) => (
-                <li key={f.id} className="row">
+                <li key={f.id} className="row reveal">
                   <div className="row__main">
                     <h3>{pick(f.name)}</h3>
                     <p>{pick(f.description)}</p>

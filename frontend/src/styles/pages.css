@@ -654,3 +654,18 @@ main:has(.where) .where {
     height: 260px;
   }
 }
+
+/* home headline: two lines under the carousel, the second one quieter */
+.headline {
+  margin-top: var(--cv-space-7);
+}
+
+.headline__line {
+  display: block;
+  animation: cv-rise 0.7s var(--ease-out) both;
+}
+
+.headline__line--muted {
+  color: var(--cv-ink-muted);
+  animation-delay: 0.12s;
+}

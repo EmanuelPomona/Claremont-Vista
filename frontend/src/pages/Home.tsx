@@ -28,11 +28,6 @@ export default function Home() {
   return (
     <div ref={rootRef}>
     <div className="container page home">
-      <header className="home__intro">
-        <h1>{t('home.h1')}</h1>
-        <p className="page__lede">{t('home.sub')}</p>
-      </header>
-
       {waiting ? (
         <Loading rows={1} tall />
       ) : error ? (
@@ -42,6 +37,11 @@ export default function Home() {
       ) : (
         <Carousel events={events.slice(0, 6)} />
       )}
+
+      <h1 className="headline">
+        <span className="headline__line">{t('home.h1')}</span>
+        <span className="headline__line headline__line--muted">{t('home.h1b')}</span>
+      </h1>
 
       <section className="home__strip" aria-labelledby="strip-h">
         <div className="section-head">
@@ -67,8 +67,8 @@ export default function Home() {
             <Loading rows={4} />
           ) : (
             <ol className="timetable">
-              {events.slice(0, 4).map((e) => (
-                <EventRow key={e.id} event={e} compact />
+              {events.slice(0, 4).map((e, i) => (
+                <EventRow key={e.id} event={e} compact reveal next={i === 0} />
               ))}
             </ol>
           )}

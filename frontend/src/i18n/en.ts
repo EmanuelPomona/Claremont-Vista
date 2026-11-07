@@ -49,6 +49,8 @@ export const en = {
   'notfound.home': 'Go to the homepage',
 
   // home
+  'home.h1b': 'Everything here is optional.',
+  'events.nextup': 'Next up',
   'home.sub': 'Everything here is optional. No sign-up, and nobody takes attendance.',
   'home.strip.h2': 'Living here on your terms',
   'home.strip.1.lead': 'Your schedule',

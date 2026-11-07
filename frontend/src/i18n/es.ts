@@ -51,6 +51,8 @@ export const es: typeof en = {
   'notfound.home': 'Ir al inicio',
 
   // home
+  'home.h1b': 'Todo aquí es opcional.',
+  'events.nextup': 'Lo próximo',
   'home.sub': 'Todo aquí es opcional. No hay que inscribirse y nadie pasa lista.',
   'home.strip.h2': 'Vivir aquí a tu manera',
   'home.strip.1.lead': 'Tu horario',

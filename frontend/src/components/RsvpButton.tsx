@@ -15,6 +15,7 @@ export function RsvpButton({ event }: { event: Event }) {
   const [count, setCount] = useState(event.going_count)
   const [pending, setPending] = useState(false)
   const [failed, setFailed] = useState(false)
+  const [bump, setBump] = useState(0) // restarts the count pop after a confirmed change
   const inflight = useRef(false)
   const isGoing = going.has(event.id)
 
@@ -29,6 +30,7 @@ export function RsvpButton({ event }: { event: Event }) {
     try {
       const res = isGoing ? await unrsvp(event.id) : await rsvp(event.id)
       setCount(res.going_count)
+      setBump((n) => n + 1)
       if (isGoing) remove(event.id)
       else add(event.id)
     } catch {
@@ -50,14 +52,16 @@ export function RsvpButton({ event }: { event: Event }) {
         aria-label={isGoing ? t('rsvp.undo.aria', { title, n: count }) : t('rsvp.go.aria', { title, n: count })}
         onClick={toggle}
       >
-        {isGoing ? (
-          <>
-            <span>{t('rsvp.going', { n: count })}</span>
-            <span className="rsvp__undo">({t('rsvp.undo')})</span>
-          </>
-        ) : (
-          t('rsvp.go', { n: count })
-        )}
+        <span key={bump} className={bump > 0 ? 'rsvp__label is-bumped' : 'rsvp__label'}>
+          {isGoing ? (
+            <>
+              <span>{t('rsvp.going', { n: count })}</span>
+              <span className="rsvp__undo">({t('rsvp.undo')})</span>
+            </>
+          ) : (
+            t('rsvp.go', { n: count })
+          )}
+        </span>
       </button>
       {failed && (
         <p className="rsvp__error" role="alert">

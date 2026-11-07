@@ -4,6 +4,7 @@ import { ErrorState } from '../components/states/ErrorState'
 import { Loading } from '../components/states/Loading'
 import { VibeLabel } from '../components/VibeLabel'
 import { useApi } from '../hooks/useApi'
+import { useReveal } from '../hooks/useReveal'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { useLang } from '../i18n'
 
@@ -12,9 +13,10 @@ export default function Clubs() {
   usePageTitle('title.clubs')
   const { data, error, loading, reload } = useApi(() => getClubs(), [])
   const waiting = loading && !data
+  const rootRef = useReveal<HTMLDivElement>(data)
 
   return (
-    <div className="container page">
+    <div className="container page" ref={rootRef}>
       <header className="page__head">
         <h1>{t('clubs.h1')}</h1>
         <p className="page__lede">{t('clubs.lede')}</p>
@@ -29,7 +31,7 @@ export default function Clubs() {
       ) : (
         <ul className="rows-top">
           {data.map((c) => (
-            <li key={c.id} className="row">
+            <li key={c.id} className="row reveal">
               <div className="row__main">
                 <h2 className="row__title">{pick(c.name)}</h2>
                 <p>{pick(c.description)}</p>

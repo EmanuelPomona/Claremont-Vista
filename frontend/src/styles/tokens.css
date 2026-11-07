@@ -11,6 +11,9 @@
   --cv-accent-tint: #ede6f6; /* selected chip, hover */
   --cv-success: #2f6b3f;
   --cv-error: #b3261e;
+  --cv-ink-muted: #7a7088; /* 4.5:1 on the canvas; #9a93a8 fails */
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* type (ADR-006): serif display, hyperlegible sans body, hyperlegible mono for data */
   --font-display: 'Instrument Serif', Georgia, serif;
