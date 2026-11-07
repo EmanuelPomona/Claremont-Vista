@@ -1,0 +1,521 @@
+/* Events: labels, carousel, the When / How social filter, timetable rows, RSVP. */
+
+/* labels: icon + words, never colour alone ------------------------------ */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cv-space-2);
+  font: 600 0.9375rem/1.25 var(--cv-font-text);
+  color: var(--cv-ink);
+}
+
+.label svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.label__hint {
+  font-weight: 400;
+  color: var(--cv-ink-2);
+}
+
+/* section heads (home + events) ------------------------------------------ */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--cv-space-2) var(--cv-space-4);
+  padding-bottom: var(--cv-space-3);
+  border-bottom: 2px solid var(--cv-ink);
+}
+
+/* home ------------------------------------------------------------------- */
+.home__intro {
+  display: grid;
+  gap: var(--cv-space-2);
+  margin-bottom: var(--cv-space-5);
+}
+
+.home__strip,
+.home__week {
+  margin-top: var(--cv-space-8);
+}
+
+.strip__item {
+  display: grid;
+  gap: var(--cv-space-1) var(--cv-space-5);
+  padding-block: var(--cv-space-4);
+  border-bottom: 1px solid var(--cv-rule);
+}
+
+.strip__lead {
+  font: 800 1.25rem/1.2 var(--cv-font-display);
+  font-stretch: 112%;
+}
+
+@media (min-width: 768px) {
+  .strip__item {
+    grid-template-columns: 15rem 1fr;
+    align-items: baseline;
+  }
+}
+
+/* carousel ---------------------------------------------------------------- */
+.carousel {
+  --photo-ratio: 4 / 3;
+  position: relative;
+}
+
+@media (min-width: 700px) {
+  .carousel {
+    --photo-ratio: 16 / 7;
+  }
+}
+
+@media (min-width: 1000px) {
+  .carousel {
+    --photo-ratio: 21 / 8;
+  }
+}
+
+.carousel__viewport {
+  overflow: hidden;
+  background: var(--cv-surface);
+  border: 1px solid var(--cv-rule);
+  border-radius: var(--cv-radius-md);
+  touch-action: pan-y;
+}
+
+.carousel__track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.slide__media {
+  aspect-ratio: var(--photo-ratio);
+  overflow: hidden;
+  background: var(--cv-accent-tint);
+}
+
+.slide__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-fallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  background: var(--cv-accent-tint);
+  color: var(--cv-accent-strong);
+}
+
+.photo-fallback .label {
+  color: inherit;
+  font: 800 clamp(1.5rem, 4vw, 2.5rem) / 1 var(--cv-font-display);
+  font-stretch: 112%;
+}
+
+.photo-fallback .label svg {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.slide__caption {
+  display: grid;
+  gap: var(--cv-space-3);
+  padding: var(--cv-space-5);
+}
+
+.slide__when {
+  font: 800 1.5rem/1.1 var(--cv-font-display);
+  font-stretch: 112%;
+}
+
+.slide__body {
+  display: grid;
+  gap: var(--cv-space-2);
+}
+
+.slide__title {
+  color: var(--cv-ink);
+  font: 700 clamp(1.1875rem, 1rem + 0.8vw, 1.5rem) / 1.2 var(--cv-font-display);
+  font-stretch: 112%;
+  text-decoration: none;
+}
+
+.slide__title:hover {
+  color: var(--cv-accent);
+  text-decoration: underline;
+}
+
+.slide__where {
+  color: var(--cv-ink-2);
+}
+
+.slide__labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cv-space-2) var(--cv-space-5);
+  padding-top: var(--cv-space-1);
+}
+
+@media (min-width: 768px) {
+  .slide__caption {
+    grid-template-columns: 13rem 1fr;
+    gap: var(--cv-space-6);
+    align-items: start;
+    padding: var(--cv-space-5) var(--cv-space-6);
+  }
+}
+
+/* arrows float over the photo: a real elevation, so a shadow is justified (brief) */
+.carousel__arrows {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  aspect-ratio: var(--photo-ratio);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--cv-space-3);
+  pointer-events: none;
+}
+
+.carousel__arrow {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cv-canvas);
+  color: var(--cv-ink);
+  box-shadow: var(--cv-elevate);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    transform 0.08s ease;
+}
+
+.carousel__arrow:hover {
+  background: var(--cv-accent-tint);
+  color: var(--cv-accent-strong);
+}
+
+.carousel__arrow:active {
+  transform: scale(0.94);
+}
+
+.carousel__arrow svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.carousel__dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--cv-space-2);
+}
+
+.dot {
+  display: grid;
+  place-items: center;
+  width: var(--cv-tap);
+  height: var(--cv-tap);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.dot span {
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px solid var(--cv-accent);
+  border-radius: 50%;
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.dot:hover span {
+  background: var(--cv-accent-tint);
+}
+
+.dot[aria-current='true'] span {
+  background: var(--cv-accent);
+  transform: scale(1.2);
+}
+
+/* the signature: When / How social --------------------------------------- */
+.filter {
+  display: grid;
+  gap: var(--cv-space-4);
+  padding-block: var(--cv-space-4);
+  margin-bottom: var(--cv-space-2);
+  border-top: 3px solid var(--cv-ink);
+  border-bottom: 1px solid var(--cv-rule);
+}
+
+.filter__row {
+  display: grid;
+  gap: var(--cv-space-2);
+}
+
+.filter__label {
+  font: 800 1.0625rem/1.2 var(--cv-font-display);
+  font-stretch: 112%;
+}
+
+.filter__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cv-space-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cv-space-2);
+  min-height: var(--cv-tap);
+  max-width: 100%;
+  padding: var(--cv-space-1) var(--cv-space-4);
+  border: 1.5px solid var(--cv-rule);
+  border-radius: var(--cv-radius-sm);
+  background: var(--cv-canvas);
+  color: var(--cv-ink);
+  font: 600 1rem/1.2 var(--cv-font-text);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.chip:hover {
+  background: var(--cv-accent-tint);
+  border-color: var(--cv-accent);
+}
+
+.chip:active {
+  transform: translateY(1px);
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--cv-accent-tint);
+  border-color: var(--cv-accent);
+  box-shadow: inset 0 0 0 1px var(--cv-accent);
+  color: var(--cv-accent-strong);
+}
+
+.chip__hint {
+  color: var(--cv-ink-2);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.chip__check {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (min-width: 768px) {
+  .filter__row {
+    grid-template-columns: 8.5rem 1fr;
+    align-items: center;
+  }
+}
+
+/* timetable ---------------------------------------------------------------- */
+.band {
+  margin-top: var(--cv-space-7);
+}
+
+.band__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--cv-space-1) var(--cv-space-4);
+  padding-bottom: var(--cv-space-3);
+  border-bottom: 2px solid var(--cv-ink);
+}
+
+.band__title .label {
+  gap: var(--cv-space-3);
+  font: 800 clamp(1.375rem, 1rem + 1.6vw, 2rem) / 1.1 var(--cv-font-display);
+  font-stretch: 112%;
+}
+
+.band__title .label svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.band__hint {
+  color: var(--cv-ink-2);
+}
+
+.event-row {
+  display: grid;
+  gap: var(--cv-space-2);
+  padding-block: var(--cv-space-4);
+  border-bottom: 1px solid var(--cv-rule);
+}
+
+.event-row__when {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--cv-space-1) var(--cv-space-3);
+}
+
+.event-row__day {
+  color: var(--cv-ink-2);
+  font-weight: 600;
+}
+
+.event-row__time {
+  font: 800 1.25rem/1.1 var(--cv-font-display);
+  font-stretch: 112%;
+  white-space: nowrap;
+}
+
+.event-row__title {
+  font: 700 1.1875rem/1.25 var(--cv-font-display);
+  font-stretch: 112%;
+}
+
+.event-row__desc {
+  margin-top: var(--cv-space-1);
+  color: var(--cv-ink-2);
+  font-size: 1rem;
+}
+
+.event-row__where {
+  display: grid;
+  font-size: 1rem;
+}
+
+.event-row__rec {
+  color: var(--cv-ink-2);
+  font-size: 0.9375rem;
+}
+
+.event-row__rsvp {
+  padding-top: var(--cv-space-1);
+}
+
+/* tablet: time | details | I'm going */
+@media (min-width: 700px) {
+  .event-row {
+    grid-template-columns: 8.5rem minmax(0, 1fr) auto;
+    grid-template-areas:
+      'when main rsvp'
+      'when where rsvp'
+      'when vibe rsvp';
+    column-gap: var(--cv-space-5);
+  }
+
+  .event-row__when {
+    grid-area: when;
+    display: grid;
+    align-content: start;
+    gap: 0;
+  }
+
+  .event-row__main {
+    grid-area: main;
+  }
+
+  .event-row__where {
+    grid-area: where;
+  }
+
+  .event-row__vibe {
+    grid-area: vibe;
+  }
+
+  .event-row__rsvp {
+    grid-area: rsvp;
+    align-self: start;
+    padding-top: 0;
+  }
+}
+
+/* desktop: a true timetable, one column per question */
+@media (min-width: 1000px) {
+  .event-row {
+    grid-template-columns: 8.5rem minmax(0, 1.8fr) minmax(0, 1fr) 11rem auto;
+    grid-template-areas: 'when main where vibe rsvp';
+    align-items: start;
+  }
+}
+
+/* RSVP --------------------------------------------------------------------- */
+.rsvp {
+  display: grid;
+  gap: var(--cv-space-1);
+}
+
+.rsvp .btn {
+  width: 100%;
+}
+
+@media (min-width: 700px) {
+  .rsvp .btn {
+    width: auto;
+    min-width: 12.5rem;
+  }
+}
+
+/* confirmed: the one place success green appears on this page */
+.btn--going {
+  background: transparent;
+  border-color: var(--cv-success);
+  color: var(--cv-success);
+}
+
+.btn--going:hover {
+  background: #e8f0ea;
+  border-color: var(--cv-success);
+  color: var(--cv-success);
+}
+
+.rsvp__undo {
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rsvp__error {
+  max-width: 16rem;
+  color: var(--cv-error);
+  font-size: 0.9375rem;
+}

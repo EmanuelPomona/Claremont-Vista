@@ -1,6 +1,6 @@
 import type { Lang } from '../i18n'
 
-// All event times are America/Los_Angeles, whatever timezone the browser is in.
+// All event times are America/Los_Angeles, whatever timezone the browser is in:
 const TZ = 'America/Los_Angeles'
 
 /** "Tue 5:30 AM" in English, "mar 5:30 a. m." in Spanish. */
@@ -8,6 +8,11 @@ export function formatWhen(iso: string, lang: Lang): string {
   const d = new Date(iso)
   const day = new Intl.DateTimeFormat(lang, { weekday: 'short', timeZone: TZ }).format(d)
   return `${day.replace('.', '')} ${formatTime(iso, lang)}`
+}
+
+/** "Tue" / "mar" */
+export function formatWeekday(iso: string, lang: Lang): string {
+  return new Intl.DateTimeFormat(lang, { weekday: 'short', timeZone: TZ }).format(new Date(iso)).replace('.', '')
 }
 
 /** "5:30 AM" / "5:30 a. m." */

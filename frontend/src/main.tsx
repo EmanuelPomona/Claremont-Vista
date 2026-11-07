@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './styles/tokens.css'
 import './styles/base.css'
 import './styles/shell.css'
+import './styles/events.css'
 import App from './App'
 import { LanguageProvider } from './i18n'
 
