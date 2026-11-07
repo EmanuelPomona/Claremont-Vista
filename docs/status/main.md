@@ -78,6 +78,13 @@ Last updated: 2026-11-07T21:49:17Z
       underline; map caption rewritten EN/ES (ADR-007). Build ok, tsc clean, browser:
       overflow 0, console has no errors, header screenshot checked.
 
+## Round 4 (owner, 10 min)
+- [x] Map caption: 28px, max-width 58rem, so 2 lines at 1440 (measured in a same-origin iframe)
+- [x] ScrollMotion: site-wide fade-up of h2/p/table/form/dl/ol + map grows 92%->100% on scroll
+      (desktop, reduced-motion off). Build ok, tsc clean, console has no errors. In-view elements
+      reveal after a paint (the automation tab was document.hidden, which throttles IO).
+- Not verified: the foreground-browser feel of the motion; mobile caption is >2 lines by design
+
 ## In progress
 - [ ] Waiting on owner review
 
