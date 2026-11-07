@@ -261,3 +261,18 @@ main:focus {
 .site-nav ul:focus-within a:not(:focus-visible) {
   opacity: 0.45;
 }
+
+/* reduced motion: show the finished wordmark at once. This sits after the rules
+   above on purpose: the hidden starting state would otherwise win the cascade. */
+@media (prefers-reduced-motion: reduce) {
+  .wordmark path {
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .wordmark circle {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}

@@ -39,7 +39,7 @@ export default function Home() {
       )}
 
       <h1 className="headline">
-        <span className="headline__line">{t('home.h1')}</span>
+        <span className="headline__line">{t('home.h1')}</span>{' '}
         <span className="headline__line headline__line--muted">{t('home.h1b')}</span>
       </h1>
 

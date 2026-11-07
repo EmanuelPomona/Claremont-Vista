@@ -30,7 +30,7 @@ function RouteChange() {
 export default function App() {
   const { t } = useLang()
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <RouteChange />
       <a className="skip-link" href="#main">
         {t('skip.main')}
