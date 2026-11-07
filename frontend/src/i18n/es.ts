@@ -148,9 +148,9 @@ export const es: typeof en = {
   'about.m.t3':
     'Cuántos residentes van al menos a un evento al mes por gusto (encuesta voluntaria, nunca rastreada)',
   'about.m.t4': 'Opiniones y calificación promedio de este sitio',
-  'about.m.apps': '{n} solicitudes hasta ahora',
-  'about.m.rsvps': '{n} confirmaciones anónimas hasta ahora',
-  'about.m.feedback': '{n} respuestas, promedio {avg} de 5',
+  'about.m.apps': 'Solicitudes hasta ahora: {n}',
+  'about.m.rsvps': 'Confirmaciones anónimas hasta ahora: {n}',
+  'about.m.feedback': 'Respuestas: {n}, calificación promedio {avg} de 5',
   'about.m.feedback.none': 'Todavía no hay respuestas',
   'about.m.after': 'Lo mediremos después de la mudanza',
 

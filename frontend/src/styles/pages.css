@@ -246,7 +246,8 @@
   margin-top: calc(var(--cv-space-3) * -1);
 }
 
-.form__submit {
+.form__submit,
+.feedback > .btn {
   justify-self: start;
 }
 
@@ -390,11 +391,14 @@
   border-collapse: collapse;
 }
 
+/* the section heading already says "Proposed rent"; keep the caption for screen readers */
 .rent__table caption {
-  padding-bottom: var(--cv-space-2);
-  text-align: left;
-  font: 800 1.0625rem/1.2 var(--cv-font-display);
-  font-stretch: 112%;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .rent__table th,

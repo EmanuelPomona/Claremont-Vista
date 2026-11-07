@@ -166,7 +166,7 @@ main:focus {
   font-size: 0.9375rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   .site-footer__inner {
     grid-template-columns: auto auto 1fr;
     align-items: baseline;

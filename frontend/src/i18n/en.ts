@@ -144,9 +144,9 @@ export const en = {
   'about.m.t2': 'Commute time cut, from a 20 to 100 mile daily drive to walking distance',
   'about.m.t3': 'Share of residents who go to at least one event a month by choice (an opt-in survey, never tracked)',
   'about.m.t4': 'Feedback responses and the average rating from this site',
-  'about.m.apps': '{n} applications so far',
-  'about.m.rsvps': '{n} anonymous RSVPs so far',
-  'about.m.feedback': '{n} responses, average {avg} of 5',
+  'about.m.apps': 'Applications so far: {n}',
+  'about.m.rsvps': 'Anonymous RSVPs so far: {n}',
+  'about.m.feedback': 'Responses: {n}, average rating {avg} of 5',
   'about.m.feedback.none': 'No responses yet',
   'about.m.after': 'We will measure this after move-in',
 
