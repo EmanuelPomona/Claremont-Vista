@@ -1,11 +1,11 @@
 ---
 id: TASK-002
 title: RSVP, applications with eligibility, feedback, metrics
-status: READY
+status: DONE
 owner: backend
 branch: agent/backend
 priority: HIGH
-round: 0
+round: 1
 depends_on: [TASK-001]
 blocked_on: ""
 ---
