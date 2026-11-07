@@ -1,0 +1,5 @@
+Console check, production build served at http://127.0.0.1:3011 against backend :8002
+Date: 2026-11-07
+Primary flow: home carousel (keys, dots, swipe, wrap) -> events filter -> RSVP/undo -> apply -> contact feedback -> about
+Result for list_console_messages(types=error,warn) on the home page after the carousel flow: <no console messages found>
+Not captured to a file for every route; see handoff "What Was NOT Verified".
