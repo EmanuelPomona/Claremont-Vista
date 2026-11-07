@@ -4,9 +4,11 @@ Round: 0
 Last updated: 2026-11-07T22:20:00Z
 
 ## Skills invoked so far
-(none yet; ADR-004 waives all but test-driven-development and
-verification-before-completion for this project. TDD is invoked at TASK-002
-step 1, verification-before-completion before the handoff.)
+ADR-004 waives all but test-driven-development and
+verification-before-completion for this project.
+- superpowers:test-driven-development @ TASK-002 step 1 (before any eligibility
+  code) -> tests first, watch them fail, then minimal code
+- superpowers:verification-before-completion: not yet (invoke right before handoff)
 
 ## Done
 - [x] bootstrap.sh run: frontend 3002 / backend **8002** (.env)
@@ -16,8 +18,8 @@ step 1, verification-before-completion before the handoff.)
       400 error handler
 
 ## In progress
-- [ ] message manager with the port (8002), then TASK-002 step 1 (invoke TDD,
-      write the 5 eligibility tests)
+- [x] manager messaged with port 8002 (TASK-001 GET endpoints live)
+- [ ] TASK-002 step 1: write the 5 eligibility tests, watch them fail, commit
 
 ## Verified
 - GET /api/health -> {"status":"ok"} on localhost:8002 (curl)
